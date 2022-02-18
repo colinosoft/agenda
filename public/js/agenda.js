@@ -46,22 +46,19 @@ document.addEventListener('DOMContentLoaded', function () {
         // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
         // console.log(info.jsEvent);
         formulario.reset();
-        var tratamiento;
         axios.post(baseURL + '/cita/monstrarTratamiento').
             then(
                 (respuesta) => {
-                    tratamiento = respuesta;
-
-
                     var sel = document.getElementById('servicio');
-                    for (var i = 0; i < 5; i++) {
-                        console.log(tratamiento.data[i]);
-                        var opt = document.createElement('option');
-                        opt.innerHTML = tratamiento.data[i].nombreTratamiento;
-                        opt.value = tratamiento.data[i].nombreTratamiento;
-                        sel.appendChild(opt);
+                    if(!sel.options.length){
+                        for (var i = 0; i < respuesta.data.length; i++) {
+                            console.log(respuesta.data[i]);
+                            var opt = document.createElement('option');
+                            opt.innerHTML = respuesta.data[i].nombreTratamiento;
+                            opt.value = respuesta.data[i].nombreTratamiento;
+                            sel.appendChild(opt);
+                        }
                     }
-
                     formulario.start.value = info.dateStr + '\T12:00:00';
                     formulario.end.value = info.dateStr + '\T12:00:00';
                     $("#evento").modal("show");
@@ -150,3 +147,4 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 });
+
