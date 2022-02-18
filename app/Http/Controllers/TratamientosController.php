@@ -47,6 +47,8 @@ class TratamientosController extends Controller
     public function show(Tratamientos $tratamientos)
     {
         //
+        $tratamientos = Tratamientos::all();
+        return response()->json($tratamientos);
     }
 
     /**

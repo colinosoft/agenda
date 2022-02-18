@@ -23,6 +23,7 @@ Route::group(['middleware' =>['auth']], function (){
 
 Route::get('/cita', [App\Http\Controllers\CitaController::class, 'index']);
 Route::post('/cita/mostrar', [App\Http\Controllers\CitaController::class, 'show']);
+Route::post('/cita/monstrarTratamiento', [App\Http\Controllers\TratamientosController::class, 'show']);
 
 Route::post('/cita/agregar', [App\Http\Controllers\CitaController::class, 'store']);
 Route::post('/cita/editar/{id}', [App\Http\Controllers\CitaController::class, 'edit']);

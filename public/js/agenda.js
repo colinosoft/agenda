@@ -22,33 +22,60 @@ document.addEventListener('DOMContentLoaded', function () {
 
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
-    
+
     eventSources: {
-      
+
       url: baseURL + "/cita/mostrar",
       method: "POST",
       backgroundColor: 'green',
-      borderColor: 'green', 
+      borderColor: 'green',
       extraParams: {
       _token: formulario._token.value,
       }
-    },    
-    
+    },
+
     eventDrop: function(info) {
       alert(info.event.title + " was dropped on " + info.event.start.toISOString());
-  
+
       if (!confirm("Are you sure about this change?")) {
         info.revert();
       }
     },
     dateClick: function (info) {
-      // alert('Clicked on: ' + info.dateStr);
-      // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-      // console.log(info.jsEvent);
-      formulario.reset();
-      formulario.start.value = info.dateStr + '\T12:00:00';
-      formulario.end.value = info.dateStr + '\T12:00:00';
-      $("#evento").modal("show");
+        // alert('Clicked on: ' + info.dateStr);
+        // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+        // console.log(info.jsEvent);
+        formulario.reset();
+        var tratamiento;
+        axios.post(baseURL + '/cita/monstrarTratamiento').
+            then(
+                (respuesta) => {
+                    tratamiento = respuesta;
+
+
+                    var sel = document.getElementById('servicio');
+                    for (var i = 0; i < 5; i++) {
+                        console.log(tratamiento.data[i]);
+                        var opt = document.createElement('option');
+                        opt.innerHTML = tratamiento.data[i].nombreTratamiento;
+                        opt.value = tratamiento.data[i].nombreTratamiento;
+                        sel.appendChild(opt);
+                    }
+
+                    formulario.start.value = info.dateStr + '\T12:00:00';
+                    formulario.end.value = info.dateStr + '\T12:00:00';
+                    $("#evento").modal("show");
+
+                }
+            )
+            .catch(
+                error => {
+                    if (error.response) {
+                        console.log(error.response.data);
+                    }
+                }
+            )
+
 
     },
 

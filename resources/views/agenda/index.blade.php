@@ -2,8 +2,8 @@
 @section('content')
 
 <div class="container">
-  
-   
+
+
     <!-- Modal -->
     <div class="modal fade" id="evento" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -15,7 +15,7 @@
 
                 <div class="modal-body">
                     <form action="post" id="formularioCita">
-                         
+
                         {!!  csrf_field() !!}
 
                         <div class="mb-3 d-none">
@@ -25,15 +25,15 @@
                           <small id="helpId" class="form-text text-muted">Help text</small>
                         </div>
 
-                        
+
                         <div class="mb-3">
                           <label for="servicio" class="form-label"></label>
                           <select class="form-control" name="servicio" id="servicio">
-                          <option>Depilación</option>
+                          <!-- <option>Depilación</option>
                             <option>Uñas</option>
                             <option>Laser</option>
                             <option>Rayos</option>
-                            <option>Limpieza</option>
+                            <option>Limpieza</option> -->
                           </select>
                         </div>
 
@@ -54,7 +54,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    
+
                     <button type="button" id="btnGuardar"   class="btn btn-success">Guardar</button>
                     <button type="button" id="btnModificar" class="btn btn-warning">Modificar</button>
                     <button type="button" id="btnEliminar"  class="btn btn-danger">Eliminar</button>
@@ -63,7 +63,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="agenda">
     </div>
 
