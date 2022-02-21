@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initialView: 'dayGridMonth',
 
     locale: 'es',
-    //displayEventTime: 'false',
+    displayEventTime: 'false',
 
     headerToolbar: {
 
@@ -41,24 +41,28 @@ document.addEventListener('DOMContentLoaded', function () {
         info.revert();
       }
     },
+    
     dateClick: function (info) {
-        // alert('Clicked on: ' + info.dateStr);
-        // alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-        // console.log(info.jsEvent);
+     
         formulario.reset();
         axios.post(baseURL + '/cita/monstrarTratamiento').
             then(
                 (respuesta) => {
+
                     var sel = document.getElementById('servicio');
                     if(!sel.options.length){
                         for (var i = 0; i < respuesta.data.length; i++) {
-                            console.log(respuesta.data[i]);
+                            //console.log(respuesta.data[i]);
                             var opt = document.createElement('option');
                             opt.innerHTML = respuesta.data[i].nombreTratamiento;
                             opt.value = respuesta.data[i].nombreTratamiento;
                             sel.appendChild(opt);
                         }
                     }
+                    var select = document.getElementById('servicio');
+            var value = select.options[select.selectedIndex].value;
+            console.log(value);
+                    formulario.title.value = value;
                     formulario.start.value = info.dateStr + '\T12:00:00';
                     formulario.end.value = info.dateStr + '\T12:00:00';
                     $("#evento").modal("show");
@@ -72,7 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             )
-
+            
+      
 
     },
 
@@ -86,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(respuesta.data.start);
 
             formulario.id.value = respuesta.data.id;
+            formulario.title.value = respuesta.data.title;
             formulario.servicio.value = respuesta.data.servicio;
             formulario.start.value = respuesta.data.start;
             formulario.end.value = respuesta.data.end;
@@ -107,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
   calendar.render();
 
   document.getElementById("btnGuardar").addEventListener("click", function () {
-
+    console.log( formulario.id.value);
     enviarDatos("/cita/agregar");
 
   });
@@ -127,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function enviarDatos(url) {
 
     const datos = new FormData(formulario);
-
+    //console.log(datos);
     const nuevaURL = baseURL + url;
 
     axios.post(nuevaURL, datos).

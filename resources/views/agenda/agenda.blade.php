@@ -25,7 +25,12 @@
                           <small id="helpId" class="form-text text-muted">Help text</small>
                         </div>
 
-
+                        <div class="mb-3 d-none">
+                          <label for="Titulo" class="form-label"></label>
+                          <input type="text" class="form-control" name="title" id="title" aria-describedby="helpId" placeholder="">
+                          <small id="helpId" class="form-text text-muted"></small>
+                        </div>
+                      
                         <div class="mb-3">
                           <label for="servicio" class="form-label"></label>
                           <select class="form-control" name="servicio" id="servicio">
@@ -71,3 +76,4 @@
 
 
 @endsection
+

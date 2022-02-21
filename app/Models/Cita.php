@@ -11,10 +11,11 @@ class Cita extends Model
 
     static $rules=[
 
+        'title'=>'required',
         'servicio'=>'required',
         'start'=>'required',
         'end'=>'required'
     ];
 
-    protected $fillable=['servicio','start','end'];
+    protected $fillable=['title','servicio','start','end'];
 }

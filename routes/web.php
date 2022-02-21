@@ -13,15 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('agenda.index');
-}) -> middleware('auth');
+// Route::get('/', function () {
+//     return view('agenda.index');
+// }) -> middleware('auth');
 
-Auth::routes();
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 
-Route::group(['middleware' =>['auth']], function (){
+// Auth::routes();
 
-Route::get('/cita', [App\Http\Controllers\CitaController::class, 'index']);
+// Route::group(['middleware' =>['auth']], function (){
+
+Route::get('/cita', [App\Http\Controllers\CitaController::class, 'index'])->name('agenda');
 Route::post('/cita/mostrar', [App\Http\Controllers\CitaController::class, 'show']);
 Route::post('/cita/monstrarTratamiento', [App\Http\Controllers\TratamientosController::class, 'show']);
 
@@ -30,7 +32,7 @@ Route::post('/cita/editar/{id}', [App\Http\Controllers\CitaController::class, 'e
 Route::post('/cita/borrar/{id}', [App\Http\Controllers\CitaController::class, 'destroy']);
 Route::post('/cita/actualizar/{cita}', [App\Http\Controllers\CitaController::class, 'update']);
 
-});
+// });
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

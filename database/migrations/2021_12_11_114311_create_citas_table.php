@@ -15,11 +15,10 @@ class CreateCitasTable extends Migration
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
+            $table->string("title",255);
             $table->string("servicio",255);
-
             $table->dateTime("start");
             $table->dateTime("end");
-            
             $table->timestamps();
         });
     }

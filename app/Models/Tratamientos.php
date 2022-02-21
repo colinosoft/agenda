@@ -17,7 +17,7 @@ class Tratamientos extends Model
 
     protected $fillable=['nombreTratamiento','duracion','cabina'];
 
-    public function cita(){
-        return $this->hasMany(Cita::class);
-    }
+    // public function cita(){
+    //     return $this->hasMany(Cita::class);
+    // }
 }
