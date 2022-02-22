@@ -3,7 +3,7 @@
 //const { method } = require("lodash");
 
 document.addEventListener('DOMContentLoaded', function () {
-  
+
   let formulario = document.querySelector("#formularioCita");
 
   var calendarEl = document.getElementById('agenda');
@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initialView: 'dayGridMonth',
 
     locale: 'es',
-    
+
 
     displayEventTime : false,
 
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     eventSources: {
 
-      url: baseURL + "/cita/mostrar",
+      url: baseURL + "/agenda/mostrar",
       method: "POST",
       backgroundColor: 'green',
       borderColor: 'green',
@@ -43,11 +43,11 @@ document.addEventListener('DOMContentLoaded', function () {
         info.revert();
       }
     },
-    
+
     dateClick: function (info) {
-     
+
         formulario.reset();
-        axios.post(baseURL + '/cita/monstrarTratamiento').
+        axios.post(baseURL + '/agenda/monstrarTratamiento').
             then(
                 (respuesta) => {
 
@@ -76,15 +76,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             )
-            
-      
+
+
 
     },
 
     eventClick: function (info) {
       var cita = info.event;
 
-      axios.post(baseURL + "/cita/editar/" + info.event.id).
+      axios.post(baseURL + "/agenda/editar/" + info.event.id).
         then(
           (respuesta) => {
 
@@ -111,23 +111,23 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   calendar.render();
-  
+
 
   document.getElementById("btnGuardar").addEventListener("click", function () {
 
-    enviarDatos("/cita/agregar");
+    enviarDatos("/agenda/agregar");
 
   });
 
   document.getElementById('btnEliminar').addEventListener('click', function () {
 
-    enviarDatos("/cita/borrar/" + formulario.id.value);
+    enviarDatos("/agenda/borrar/" + formulario.id.value);
 
   });
 
   document.getElementById('btnModificar').addEventListener('click', function () {
 
-    enviarDatos("/cita/actualizar/" + formulario.id.value);
+    enviarDatos("/agenda/actualizar/" + formulario.id.value);
 
   });
 
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const datos = new FormData(formulario);
     //console.log(datos);
     const nuevaURL = baseURL + url;
-    
+
     axios.post(nuevaURL, datos).
       then(
         (respuesta) => {

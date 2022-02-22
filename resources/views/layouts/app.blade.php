@@ -29,7 +29,7 @@
     <script type="text/javascript">
         var baseURL = {!! json_encode(url('/')) !!}
     </script>
-    
+
 </head>
 <body>
     <div id="app">
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </nav>
-       
+
         <main class="py-4">
             @yield('content')
         </main>

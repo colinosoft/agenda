@@ -18,15 +18,14 @@
                                     <a class="nav-link" href="{{ route('inicio') }}">Inicio</a>
                                 </li>
                             <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('agenda
-                                        ') }}">Agenda</a>
+                                    <a class="nav-link" href="{{ route('agenda') }}">Agenda</a>
                                 </li>
                             <li class="nav-item dropdown">
-                                
+
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                    Mi cuenta
                                 </a>
-                                
+
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

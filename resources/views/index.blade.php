@@ -1,11 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="container-fluid  w-100 h-50">
+
+        <img style="width:100%; height:400px;" id="image"src="img/utensiliosCabecera.jpg">
+
+    </div>
 <div class="container">
+
+
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
+
 
                 <div class="card-body">
                     @if (session('status'))

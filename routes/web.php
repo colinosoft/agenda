@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+// use App\Http\Controllers\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,24 +14,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Route::get('/', function () {
-//     return view('agenda.index');
+//     return view('agenda.agenda');
 // }) -> middleware('auth');
-
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 
 Auth::routes();
 
-// Route::group(['middleware' =>['auth']], function (){
-
+//Home
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
+//Agenda
 Route::get('/agenda', [App\Http\Controllers\CitaController::class, 'index'])->name('agenda');
 
-Route::post('/cita/mostrar', [App\Http\Controllers\CitaController::class, 'show']);
-Route::post('/cita/monstrarTratamiento', [App\Http\Controllers\TratamientosController::class, 'show']);
 
-Route::post('/cita/agregar', [App\Http\Controllers\CitaController::class, 'store']);
-Route::post('/cita/editar/{id}', [App\Http\Controllers\CitaController::class, 'edit']);
-Route::post('/cita/borrar/{id}', [App\Http\Controllers\CitaController::class, 'destroy']);
-Route::post('/cita/actualizar/{cita}', [App\Http\Controllers\CitaController::class, 'update']);
+// Route::group(['middleware' =>['auth']], function (){
+
+
+//Modal agenda
+Route::post('/agenda/mostrar', [App\Http\Controllers\CitaController::class, 'show']);
+Route::post('/agenda/monstrarTratamiento', [App\Http\Controllers\TratamientosController::class, 'show']);
+Route::post('/agenda/agregar', [App\Http\Controllers\CitaController::class, 'store']);
+Route::post('/agenda/editar/{id}', [App\Http\Controllers\CitaController::class, 'edit']);
+Route::post('/agenda/borrar/{id}', [App\Http\Controllers\CitaController::class, 'destroy']);
+Route::post('/agenda/actualizar/{cita}', [App\Http\Controllers\CitaController::class, 'update']);
 
 // });
 
