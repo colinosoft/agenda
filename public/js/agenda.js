@@ -3,7 +3,7 @@
 //const { method } = require("lodash");
 
 document.addEventListener('DOMContentLoaded', function () {
-
+  
   let formulario = document.querySelector("#formularioCita");
 
   var calendarEl = document.getElementById('agenda');
@@ -12,7 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initialView: 'dayGridMonth',
 
     locale: 'es',
-    displayEventTime: 'false',
+    
+
+    displayEventTime : false,
 
     headerToolbar: {
 
@@ -60,9 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                     }
                     var select = document.getElementById('servicio');
-            var value = select.options[select.selectedIndex].value;
-            console.log(value);
-                    formulario.title.value = value;
+                    formulario.title.value = select.options[select.selectedIndex].value;
                     formulario.start.value = info.dateStr + '\T12:00:00';
                     formulario.end.value = info.dateStr + '\T12:00:00';
                     $("#evento").modal("show");
@@ -111,9 +111,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   calendar.render();
+  
 
   document.getElementById("btnGuardar").addEventListener("click", function () {
-    console.log( formulario.id.value);
+
     enviarDatos("/cita/agregar");
 
   });
@@ -131,11 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function enviarDatos(url) {
-
+    formulario.title.value = formulario.servicio.value;
     const datos = new FormData(formulario);
     //console.log(datos);
     const nuevaURL = baseURL + url;
-
+    
     axios.post(nuevaURL, datos).
       then(
         (respuesta) => {
