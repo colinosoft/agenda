@@ -19,11 +19,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 
-// Auth::routes();
+Auth::routes();
 
 // Route::group(['middleware' =>['auth']], function (){
 
-Route::get('/cita', [App\Http\Controllers\CitaController::class, 'index'])->name('agenda');
+Route::get('/agenda', [App\Http\Controllers\CitaController::class, 'index'])->name('agenda');
+
 Route::post('/cita/mostrar', [App\Http\Controllers\CitaController::class, 'show']);
 Route::post('/cita/monstrarTratamiento', [App\Http\Controllers\TratamientosController::class, 'show']);
 

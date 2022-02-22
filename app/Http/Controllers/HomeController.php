@@ -24,6 +24,7 @@ class HomeController extends Controller
     public function agenda(Request $request)
     {
         $request->user()->authorizeRoles(['user', 'admin']);
+
         return view('agenda');
     }
     public function index(){
