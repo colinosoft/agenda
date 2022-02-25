@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid  w-100 h-50">
+<!-- <div class="container-fluid  w-100 h-50">
 
         <img style="width:100%; height:400px;" id="image"src="img/utensiliosCabecera.jpg">
 
-    </div>
+    </div> -->
 <div class="container">
 
 
-ssfa
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header">{{ __('Pagina de Inicio') }}</div>
 
 
                 <div class="card-body">
@@ -23,7 +23,7 @@ ssfa
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ __('Estas logueado!') }}
                 </div>
             </div>
         </div>

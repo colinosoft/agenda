@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
+use App\Models\Cita;
 
 
 
@@ -55,6 +56,10 @@ class User extends Authenticatable
         abort_unless($this->hasAnyRole($roles), 401);
         return true;
     }
+    public function cita()
+    {
+        return $this->hasMany(Cita::class);
+    }
 
     public function hasAnyRole($roles)
     {
@@ -71,7 +76,7 @@ class User extends Authenticatable
         }
         return false;
     }
-    
+
     public function hasRole($role)
     {
         if ($this->roles()->where('name', $role)->first()) {
