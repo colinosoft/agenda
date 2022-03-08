@@ -23,6 +23,8 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
 //Agenda
 Route::get('/agenda', [App\Http\Controllers\CitaController::class, 'index'])->name('agenda');
+//Administrar
+Route::get('/administrar', [App\Http\Controllers\AdministrarController::class, 'index'])->name('administrar');
 
 
 // Route::group(['middleware' =>['auth']], function (){
