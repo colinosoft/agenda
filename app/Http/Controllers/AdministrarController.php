@@ -18,7 +18,7 @@ class AdministrarController extends Controller
         
         $request->user()->authorizeRoles(['admin']);
         $user = "";
-        return view('agenda.agenda', [
+        return view('administrar', [
             "user" => $user
         ]);
     }

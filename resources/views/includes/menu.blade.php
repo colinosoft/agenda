@@ -35,6 +35,9 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('agenda') }}">Agenda</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('administrar') }}">Administrar</a>
+    </li>
 
     @endif
     <li class="nav-item dropdown">
