@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
 use App\Models\Cita;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class User extends Authenticatable
@@ -83,5 +83,11 @@ class User extends Authenticatable
             return true;
         }
         return false;
+    }
+
+
+    public function adminlte_desc()
+    {
+        return $this->roles[0]->description;
     }
 }
