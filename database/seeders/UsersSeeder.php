@@ -15,12 +15,14 @@ class UsersSeeder extends Seeder
     public function run()
     {
         //
-        for ($i=0; $i < 10 ; $i++) { 
+        for ($i=0; $i < 1 ; $i++) {
             $user = new User();
             $user->name = "Usuario$i";
             $user->email = "u@$i.com";
             $user->password = bcrypt('123456');
             $user->save();
         }
+
+        User::factory(99)->create();
     }
 }
