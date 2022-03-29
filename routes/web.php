@@ -19,6 +19,7 @@ Route::get('/agenda', [App\Http\Controllers\CitaController::class, 'index'])->na
 Route::get('/administrar', [App\Http\Controllers\AdministrarController::class, 'index'])->name('administrar');
 
 //----- Recursos ------//
+//-- Usuarios
 Route::resource('users', UserController::class)->names('admin.users');
 
 
