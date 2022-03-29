@@ -21,8 +21,9 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td width="10px">
-                                    <a name="" id="" class="btn btn-primary"
-                                        href="{{ route('admin.users.edit', $user) }}" role="button">Editar</a>
+                                    <button  wire:click="$emit('edit-user')">Hola</button>
+                                    {{-- @livewire('admin.edit-user', ['usuario' => $user], key($user->id)) --}}
+
                                 </td>
                             </tr>
                         @endforeach
