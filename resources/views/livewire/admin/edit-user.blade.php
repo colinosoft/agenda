@@ -1,9 +1,9 @@
 <div>
     {{-- <a name="" id="" class="btn btn-primary" href="#" role="button">Editar</a> --}}
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Editar
-      </button>
+      </button> --}}
 
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -18,7 +18,7 @@
                   <label for="recipient-name" class="col-form-label">Nombre:</label>
                   <input type="text" class="form-control" id="name" placeholder="">
                   <div class="mb-3">
-                    <label for="" class="form-label">{{}}</label>
+                    <label for="" class="form-label">{{$user}}</label>
                     <textarea class="form-control" name="" id="" rows="3"></textarea>
                   </div>
                 </div>

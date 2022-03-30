@@ -7,11 +7,15 @@ use App\Models\User;
 
 class EditUser extends Component
 {
-    public $usuario;
+    public $user;
 
     public function render()
     {
-        $user = User::all();
-        return view('livewire.admin.edit-user',compact('user'));
+
+        // return view('livewire.admin.edit-user',compact('user'));
+        return view('livewire.admin.edit-user');
+    }
+    public function selectid($id){
+      return $user = User::all();
     }
 }
