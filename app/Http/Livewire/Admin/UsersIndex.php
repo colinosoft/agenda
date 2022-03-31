@@ -32,4 +32,8 @@ class UsersIndex extends Component
         return view('livewire.admin.users-index', compact('users'));
 
     }
+    public function like(){
+        $this->emit('pasar');
+    }
+
 }

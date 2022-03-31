@@ -18,7 +18,7 @@
                   <label for="recipient-name" class="col-form-label">Nombre:</label>
                   <input type="text" class="form-control" id="name" placeholder="">
                   <div class="mb-3">
-                    <label for="" class="form-label">{{$user}}</label>
+                    <label for="" class="form-label"></label>
                     <textarea class="form-control" name="" id="" rows="3"></textarea>
                   </div>
                 </div>

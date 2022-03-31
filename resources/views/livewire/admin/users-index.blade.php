@@ -25,7 +25,10 @@
                                     {{-- <button  wire:click="$emit('admin.edit-user')">Hola</button>--}}
 
                                      {{-- , ['user' => $user], key($user->id) --}}
-                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" wire:click="selectid({{ $user->id }}" data-bs-target="#exampleModal">
+                                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"  wire:click="$emit('postAdded',{{$user->id}})" data-bs-target="#exampleModal">
+                                        Editar fuera
+                                      </button> --}}
+                                      <button type="button" class="btn btn-primary" data-bs-toggle="modal"  wire:click="like" data-bs-target="#exampleModal">
                                         Editar fuera
                                       </button>
 
