@@ -7,7 +7,10 @@ use App\Models\User;
 
 class EditUser extends Component
 {
-    public $user;
+
+    public $post;
+
+    protected $listeners = ['pasar'];
 
     public function render()
     {
@@ -15,7 +18,9 @@ class EditUser extends Component
         // return view('livewire.admin.edit-user',compact('user'));
         return view('livewire.admin.edit-user');
     }
-    public function selectid($id){
-      return $user = User::all();
+    public function pasar()
+    {
+        $this->post = User::count();
     }
+
 }
