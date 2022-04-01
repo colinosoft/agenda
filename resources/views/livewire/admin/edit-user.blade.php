@@ -16,20 +16,17 @@
               <form>
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">Nombre:</label>
-                  <input type="text" class="form-control" id="name" placeholder="" value="{{$user}}">
-                  <div class="mb-3">
-                    <label for="" class="form-label"></label>
-                    <textarea class="form-control" name="" id="" rows="3"></textarea>
-                  </div>
+                  <input type="text" class="form-control" id="name" placeholder="" value="{{$nombre}}">
+
                 </div>
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">Email:</label>
-                  <input type="text" class="form-control" id="email" value="">
+                  <input type="text" class="form-control" id="email" value="{{$email}}">
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-secondary" wire:click="resetInputFields" data-bs-dismiss="modal">Cerrar</button>
               <button type="button" class="btn btn-primary">Guardar</button>
             </div>
           </div>

@@ -9,6 +9,8 @@ class EditUser extends Component
 {
 
     public $user;
+    public $nombre;
+    public $email;
 
     protected $listeners = ['usuario'];
 
@@ -22,7 +24,16 @@ class EditUser extends Component
     public function usuario($id)
     {
 
-        $this->user =  User::where('id',$id)->first();
+        // $this->consulta=  User::where('id',$id)->first();
+        $this->user =  User::find($id);
+        $this->nombre = $this->user->name;
+        $this->email = $this->user->email;
+        // $email = $this->user->email;
+    }
+
+    public function resetInputFields(){
+        $this->nombre = '';
+        $this->email = '';
     }
 
 }

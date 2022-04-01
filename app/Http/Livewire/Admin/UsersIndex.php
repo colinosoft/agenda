@@ -13,7 +13,7 @@ class UsersIndex extends Component
 
     protected $paginationTheme = "bootstrap";
 
-    public $search, $userId;
+    public $search, $userId,$nombre,$email;
 
     public function updatingSearch(){
 
