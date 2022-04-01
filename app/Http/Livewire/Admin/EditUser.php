@@ -8,19 +8,21 @@ use App\Models\User;
 class EditUser extends Component
 {
 
-    public $post;
+    public $user;
 
-    protected $listeners = ['pasar'];
+    protected $listeners = ['usuario'];
 
     public function render()
     {
 
         // return view('livewire.admin.edit-user',compact('user'));
-        return view('livewire.admin.edit-user');
+         return view('livewire.admin.edit-user');
     }
-    public function pasar()
+
+    public function usuario($id)
     {
-        $this->post = User::count();
+
+        $this->user =  User::where('id',$id)->first();
     }
 
 }

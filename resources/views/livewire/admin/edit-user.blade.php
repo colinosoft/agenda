@@ -5,7 +5,7 @@
         Editar
       </button> --}}
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="exampleModal" wire:ignore.self tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -16,7 +16,7 @@
               <form>
                 <div class="mb-3">
                   <label for="recipient-name" class="col-form-label">Nombre:</label>
-                  <input type="text" class="form-control" id="name" placeholder="">
+                  <input type="text" class="form-control" id="name" placeholder="" value="{{$user}}">
                   <div class="mb-3">
                     <label for="" class="form-label"></label>
                     <textarea class="form-control" name="" id="" rows="3"></textarea>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">Email:</label>
-                  <input type="text" class="form-control" id="email">
+                  <input type="text" class="form-control" id="email" value="">
                 </div>
               </form>
             </div>
@@ -35,4 +35,5 @@
           </div>
         </div>
       </div>
+
 </div>

@@ -13,7 +13,7 @@ class UsersIndex extends Component
 
     protected $paginationTheme = "bootstrap";
 
-    public $search;
+    public $search, $userId;
 
     public function updatingSearch(){
 
@@ -32,8 +32,10 @@ class UsersIndex extends Component
         return view('livewire.admin.users-index', compact('users'));
 
     }
-    public function like(){
-        $this->emit('pasar');
+    public function usuario($id){
+        // $user = User::where('id',$id)->first();
+        $this->userId = $id;
+        $this->emit('usuario', $this->userId);
     }
 
 }
