@@ -1,5 +1,5 @@
 <div>
-    @livewire('admin.edit-user')
+    {{-- @livewire('admin.edit-user',['title' => 'Editar usuario']) --}}
     <div class="card">
         <div class="card-header">
             <input wire:model="search" class="form-control" type="text" placeholder="Buscar usuarios">
@@ -28,9 +28,12 @@
                                      {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"  wire:click="$emit('postAdded',{{$user->id}})" data-bs-target="#exampleModal">
                                         Editar fuera
                                       </button> --}}
+
+                                    {{--
                                       <button type="button" class="btn btn-primary" data-bs-toggle="modal"  wire:click="usuario({{$user->id}})" data-bs-target="#exampleModal">
-                                        Editar fuera
-                                      </button>
+                                        Editar
+                                      </button> --}}
+                                      @livewire('admin.edit-user' ,['user' => $user,'title' => 'Editar usuario'], key($user->id))
 
                                 </td>
                             </tr>
