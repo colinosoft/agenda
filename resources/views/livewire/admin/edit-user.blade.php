@@ -1,10 +1,10 @@
-<div>
+<div >
     {{-- <a name="" id="" class="btn btn-primary" href="#" role="button">Editar</a> --}}
 
     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Editar
       </button> --}}
-      <button type="button" class="btn btn-primary fa-solid fa-pen-to-square" data-bs-toggle="modal"  data-bs-target="#exampleModal">
+      {{-- <button type="button" class="btn btn-primary fa-solid fa-pen-to-square" data-bs-toggle="modal"  data-bs-target="#exampleModal">
         EDT
       </button>
       <div class="modal fade" id="exampleModal" wire:ignore.self tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -33,6 +33,30 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
+
+        <form wire:submit.prevent="update" class="bg-white shadow-md rounded px-8 pt-6 pb-8 items-center">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="username" >
+                Nombre de usuario
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" wire:model.defer="user.name">
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+              Email
+            </label>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="text" wire:model.defer="user.email">
+
+          </div>
+          <div class="flex items-center justify-between">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+             Guardar
+            </button>
+            <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+              Cancelar
+            </a>
+          </div>
+        </form>
 
 </div>

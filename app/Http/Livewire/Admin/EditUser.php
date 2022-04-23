@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Admin;
 
-use Livewire\Component;
+// use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
 
-class EditUser extends Component
+class EditUser extends ModalComponent
 {
 
     // public $user,$title;
@@ -13,7 +14,8 @@ class EditUser extends Component
     // public $email;
 
     // protected $listeners = ['usuario'];
-    public $user,$title;
+    public $title;
+    public User $user;
 
     protected $rules = [
         'user.name' => 'requiered',
