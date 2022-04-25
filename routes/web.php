@@ -20,7 +20,7 @@ Route::get('/administrar', [App\Http\Controllers\AdministrarController::class, '
 
 //----- Recursos ------//
 //-- Usuarios
-Route::resource('users', UserController::class)->names('admin.users');
+Route::resource('users', UserController::class)->names('admin.users') -> middleware('auth');
 
 
 // Route::group(['middleware' =>['auth']], function (){

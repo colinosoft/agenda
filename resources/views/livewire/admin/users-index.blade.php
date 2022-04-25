@@ -37,11 +37,8 @@
                                       </button> --}}
                                       {{-- @livewire('admin.edit-user' ,['user' => $user,'title' => 'Editar usuario'], key($user->id)) --}}
 
-                                      <!-- Inside existing Livewire component -->
-                                    <!-- Outside of any Livewire component -->
-
-                                    <button class="btn btn-primary fa-solid fa-pen-to-square fa-xl " onclick='Livewire.emit("openModal", "admin.edit-user", @json([$user]))'></button>
-                                    <button class="btn btn-danger fa-solid fa-coffee fa-2xl " onclick='Livewire.emit("openModal", "admin.edit-user", @json([$user]))'></button>
+                                    <button class="mx-1 btn btn-primary fa-solid fa-pen-to-square" onclick='Livewire.emit("openModal", "admin.edit-user", @json([$user]))'></button>
+                                    <button class="mx-1 btn btn-danger fas fa-trash" wire:click="delete({{$user->id}})"></button>
 
                                 </td>
 

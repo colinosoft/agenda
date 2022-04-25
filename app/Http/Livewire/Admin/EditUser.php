@@ -14,14 +14,21 @@ class EditUser extends ModalComponent
     // public $email;
 
     // protected $listeners = ['usuario'];
-    public $title;
+    public $title = "Editar usuarios";
     public User $user;
 
     protected $rules = [
-        'user.name' => 'requiered',
-        'user.email' => 'requiered'
+        'user.name' =>  ['requiered', 'string'],
+        'user.email' => ['requiered', 'email']
     ];
 
+    // protected function rules(): array
+    // {
+    //     return  [
+    //         'user.name' => ['requiered', 'string'],
+    //         'user.email' => ['requiered', 'email']
+    //     ];
+    // }
     public function mount(User $user){
         $this->user = $user;
     }
@@ -34,23 +41,17 @@ class EditUser extends ModalComponent
          return view('livewire.admin.edit-user');
     }
 
+    public function update()
+    {
+        // $this->validate();
 
-    // public function usuario($id)
-    // {
+        $this->user->save();
 
-    //     // $this->consulta=  User::where('id',$id)->first();
-    //     $this->user =  User::find($id);
-    //     $this->name = $this->user->name;
-    //     $this->email = $this->user->email;
-    //     // $email = $this->user->email;
-    // }
-
-    public function resetInputFields(){
-        $this->name = '';
-        $this->email = '';
+        $this->closeModalWithEvents([
+            UsersIndex::getName() => 'userUpdate',
+        ]);
     }
 
-    public function saveUser(){
 
-    }
+
 }

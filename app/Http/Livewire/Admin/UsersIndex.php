@@ -12,6 +12,7 @@ class UsersIndex extends Component
     use WithPagination;
 
     protected $paginationTheme = "bootstrap";
+    protected $listeners = ['userUpdate' =>'render'];
 
     public $search;
 
@@ -32,10 +33,8 @@ class UsersIndex extends Component
         return view('livewire.admin.users-index', compact('users'));
 
     }
-    public function usuario($id){
-        // $user = User::where('id',$id)->first();
-        $this->userId = $id;
-        $this->emit('usuario', $this->userId);
+    public function delete($id){
+        User::destroy($id);
     }
 
 }
