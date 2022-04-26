@@ -32,5 +32,33 @@
 
     <!-- Alpine v3 -->
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+
+        Livewire.on('deleteUser', userId => {
+
+            Swal.fire({
+                title: '¿Seguro que desea eliminar a este usuario?',
+                text: "No podras desacer este cambio una vez realizado",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: "Cancelar",
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    Livewire.emitTo('admin.users-index', 'delete',userId);
+
+                    Swal.fire(
+                        'Eliminado!',
+                        'Este usuario ha sido eliminado',
+                        'success'
+                    )
+                }
+            })
+        })
+    </script>
 
 @stop
