@@ -23,7 +23,7 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td class="grid grid-cols-2 min-w-min">
+                                <td class="grid grid-cols-2">
                                     {{-- <button  wire:click="$emit('admin.edit-user')">Hola</button>--}}
 
                                      {{-- , ['user' => $user], key($user->id) --}}

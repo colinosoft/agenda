@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  let formulario = document.querySelector("#formularioCita");
+  var formulario = document.querySelector("#formularioCita");
 
   var calendarEl = document.getElementById('agenda');
 

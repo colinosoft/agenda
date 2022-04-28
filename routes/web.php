@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AgendaController;
 // use App\Http\Controllers\Auth;
 
 
@@ -20,7 +21,8 @@ Route::get('/administrar', [App\Http\Controllers\AdministrarController::class, '
 
 //----- Recursos ------//
 //-- Usuarios
-Route::resource('users', UserController::class)->names('admin.users') -> middleware('auth');
+Route::resource('Admin-users', UserController::class)->names('admin.users') -> middleware('auth');
+Route::resource('Admin-agenda', AgendaController::class)->names('admin.agenda') -> middleware('auth');
 
 
 // Route::group(['middleware' =>['auth']], function (){

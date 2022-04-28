@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Cita;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
 
-class CitaController extends Controller
+class AgendaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,7 @@ class CitaController extends Controller
      */
     public function index()
     {
-        //
-        return view('agenda.agenda');
+        return view('admin.agenda.index');
     }
 
     /**
@@ -38,61 +35,51 @@ class CitaController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Cita::$rules);
-        $cita=Cita::create($request->all());
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cita  $cita
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Cita $cita)
+    public function show($id)
     {
-        $cita = Cita::all();
-        return response()->json($cita);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cita  $cita
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $cita = Cita::find($id);
-        $cita->start = Carbon::createFromFormat('Y-m-d H:i:s', $cita->start)->format('Y-m-d\TH:i:s');
-        $cita->end = Carbon::createFromFormat('Y-m-d H:i:s', $cita->end)->format('Y-m-d\TH:i:s');
-        return response()->json($cita);
-
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cita  $cita
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cita $cita)
+    public function update(Request $request, $id)
     {
-        request()->validate(Cita::$rules);
-        $cita->update($request->all());
-        return response()->json($cita);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cita  $cita
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $cita = Cita::find($id)->delete();
-        return response()->json($cita);
-
+        //
     }
 }

@@ -244,7 +244,7 @@ return [
         // Sidebar items:
         [
             'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Buscar',
         ],
         [
             'text' => 'blog',
@@ -253,7 +253,7 @@ return [
         ],
         [
             'text'        => 'Agenda',
-            'route'         => 'agenda',
+            'route'         => 'admin.agenda.index',
             'icon'        => 'far fa-fw fa-calendar-alt',
             'label_color' => 'success',
         ],
@@ -264,10 +264,10 @@ return [
             'label_color' => 'success',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 6,
+            'text'        => 'Tratamientos',
+            'url'         => '#',
+            'icon'        => 'fas fa-spa fa-fw',
+            // 'label'       => 6,
             'label_color' => 'success',
         ],
         ['header' => 'account_settings'],
