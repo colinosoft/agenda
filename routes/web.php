@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AgendaController;
+use App\Http\Controllers\Admin\TratamientosController;
+
 // use App\Http\Controllers\Auth;
 
 
@@ -19,11 +21,13 @@ Route::get('/agenda', [App\Http\Controllers\CitaController::class, 'index'])->na
 //Administrar
 Route::get('/administrar', [App\Http\Controllers\AdministrarController::class, 'index'])->name('administrar');
 
-//----- Recursos ------//
-//-- Usuarios
-Route::resource('Admin-users', UserController::class)->names('admin.users') -> middleware('auth');
+//-------------- Recursos ---------------//
+//-- Agenda --//
 Route::resource('Admin-agenda', AgendaController::class)->names('admin.agenda') -> middleware('auth');
-
+//-- Usuarios --//
+Route::resource('Admin-users', UserController::class)->names('admin.users') -> middleware('auth');
+//--- Tratamientos --//
+Route::resource('Admin-tratamientos', TratamientosController::class)->names('admin.tratamientos')->middleware('auth');
 
 // Route::group(['middleware' =>['auth']], function (){
 
