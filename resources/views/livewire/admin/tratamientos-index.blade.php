@@ -1,7 +1,14 @@
 <div>
     <div class="card">
         <div class="card-header">
-            <input wire:model="search" class="form-control" type="text" placeholder="Buscar usuarios">
+            <div class="container">
+                <div class="row">
+                    <div class="input-group">
+                        <input wire:model="search" class="col-xl-6 form-control " type="text" placeholder="Buscar tratamientos">
+                        <button class="offset-xl-2 col-xl-4 mx-1 btn btn-primary fa-solid fa-pen-to-square" >Crear tratamiento</button>
+                    </div>
+                </div>
+            </div>
         </div>
         @if ($tratamientos->count())
             <div class="card-body">
@@ -36,7 +43,7 @@
                                       </button> --}}
                                       {{-- @livewire('admin.edit-user' ,['user' => $user,'title' => 'Editar usuario'], key($user->id)) --}}
 
-                                    <button class="mx-1 btn btn-primary fa-solid fa-pen-to-square" onclick='Livewire.emit("openModal", "admin.edit-user", @json([$tratamiento]))'></button>
+                                    <button class="mx-1 btn btn-primary fa-solid fa-pen-to-square" onclick='Livewire.emit("openModal", "admin.edit-tratamientos", @json([$tratamiento]))'></button>
                                     {{-- Boton borrar normal
                                     <button class="mx-1 btn btn-danger fas fa-trash" wire:click="delete({{$user->id}})"></button> --}}
                                     <button class="mx-1 btn btn-danger fas fa-trash" wire:click="$emit('deleteTratamiento',{{$tratamiento->id}})"></button>

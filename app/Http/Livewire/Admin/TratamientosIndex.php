@@ -10,7 +10,7 @@ class TratamientosIndex extends Component
 {
     use WithPagination;
     protected $paginationTheme = "bootstrap";
-    protected $listeners = ['delete'];
+    protected $listeners = ['tratamientoUpdate' =>'render', 'delete'];
 
 
     public $search;
