@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="input-group">
                         <input wire:model="search" class="col-xl-6 form-control " type="text" placeholder="Buscar tratamientos">
-                        <button class="offset-xl-2 col-xl-4 mx-1 btn btn-primary fa-solid fa-pen-to-square" >Crear tratamiento</button>
+                        <button onclick='Livewire.emit("openModal", "admin.edit-tratamientos")' class="offset-xl-2 col-xl-4 mx-1 btn btn-primary fa-solid fa-pen-to-square" >Crear tratamiento</button>
                     </div>
                 </div>
             </div>

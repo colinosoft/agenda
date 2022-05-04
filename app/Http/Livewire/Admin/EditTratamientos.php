@@ -8,8 +8,8 @@ use LivewireUI\Modal\ModalComponent;
 class EditTratamientos extends ModalComponent
 {
 
-    public $title = "Editar tratamientos";
-    public Tratamientos  $tratamiento;
+    public $title = "Editar tratamientos", $nuevoTratamiento, $cabina,$duracion;
+    public Tratamientos $tratamiento;
 
     protected $rules = [
         'tratamiento.nombreTratamiento' =>  ['requiered'],
@@ -26,6 +26,15 @@ class EditTratamientos extends ModalComponent
     {
         return view('livewire.admin.edit-tratamientos');
     }
+
+    public function saveTratamiento(){
+        Tratamientos::created([
+            'nombreTratamiento' => $this->nuevoTratamiento,
+            'duracion' => $this->cabina,
+            'cabina' => $this->duracion,
+        ]);
+    }
+
 
     public function update()
     {
