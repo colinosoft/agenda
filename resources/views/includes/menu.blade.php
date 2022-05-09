@@ -18,10 +18,10 @@
             <a class="nav-link" href="{{ route('inicio') }}">Inicio</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('agenda') }}">Agenda</a>
+            <a class="nav-link" href="{{ route('cita') }}">Pedir cita</a>
         </li>
     @else
-    
+
         <li class="nav-item">
             <a class="nav-link" href="{{ route('inicio') }}">Inicio</a>
         </li>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\TratamientosController;
+use App\Http\Controllers\User\PedirCita;
 
 // use App\Http\Controllers\Auth;
 
@@ -20,6 +21,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('in
 Route::get('/agenda', [App\Http\Controllers\CitaController::class, 'index'])->name('agenda');
 //Administrar
 Route::get('/administrar', [App\Http\Controllers\AdministrarController::class, 'index'])->name('administrar');
+//Pedir cita
+Route::get('/Cita', [PedirCita::class, 'index'])->name('cita');
 
 //-------------- Recursos ---------------//
 //-- Agenda --//
@@ -39,6 +42,8 @@ Route::post('/agenda/agregar', [App\Http\Controllers\CitaController::class, 'sto
 Route::post('/agenda/editar/{id}', [App\Http\Controllers\CitaController::class, 'edit']);
 Route::post('/agenda/borrar/{id}', [App\Http\Controllers\CitaController::class, 'destroy']);
 Route::post('/agenda/actualizar/{cita}', [App\Http\Controllers\CitaController::class, 'update']);
+//Pedir cita
+
 
 // });
 

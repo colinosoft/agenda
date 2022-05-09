@@ -18,7 +18,9 @@ class EditTratamientos extends ModalComponent
     ];
 
     public function mount(Tratamientos $tratamiento){
+
         $this->tratamiento = $tratamiento;
+
     }
 
 
@@ -28,11 +30,13 @@ class EditTratamientos extends ModalComponent
     }
 
     public function saveTratamiento(){
+
         Tratamientos::created([
             'nombreTratamiento' => $this->nuevoTratamiento,
             'duracion' => $this->cabina,
             'cabina' => $this->duracion,
         ]);
+
     }
 
 

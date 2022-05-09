@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="update" class="bg-white shadow-md rounded px-8 pt-6 pb-8 items-center">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 items-center">
         <div class="mb-8">
           <label class="block text-gray-700 text-sm font-bold mb-3" >
               {{ $title }}

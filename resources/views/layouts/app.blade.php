@@ -58,6 +58,6 @@
         </main>
 
     </div>
-    <script src="{{ asset('js/agenda.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/agenda.js') }}" defer></script> --}}
 </body>
 </html>

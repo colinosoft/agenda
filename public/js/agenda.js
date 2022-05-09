@@ -4,69 +4,144 @@
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  var formulario = document.querySelector("#formularioCita");
+    var formulario = document.querySelector("#formularioCita");
 
-  var calendarEl = document.getElementById('agenda');
+    var calendarEl = document.getElementById('agenda');
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
 
-    locale: 'es',
+        locale: 'es',
 
 
-    displayEventTime : false,
+        displayEventTime: false,
 
-    headerToolbar: {
+        headerToolbar: {
 
-      left: 'prev,next today',
+            left: 'prev,next today',
 
-      center: 'title',
+            center: 'title',
 
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
 
-    eventSources: {
+        eventSources: {
 
-      url: baseURL + "/agenda/mostrar",
-      method: "POST",
-      backgroundColor: 'green',
-      borderColor: 'green',
-      extraParams: {
-      _token: formulario._token.value,
-      }
-    },
+            url: baseURL + "/agenda/mostrar",
+            method: "POST",
+            backgroundColor: 'green',
+            borderColor: 'green',
+            extraParams: {
+                _token: formulario._token.value,
+            }
+        },
 
-    eventDrop: function(info) {
-      alert(info.event.title + " was dropped on " + info.event.start.toISOString());
+        eventDrop: function (info) {
+            alert(info.event.title + " was dropped on " + info.event.start.toISOString());
 
-      if (!confirm("Are you sure about this change?")) {
-        info.revert();
-      }
-    },
+            if (!confirm("Are you sure about this change?")) {
+                info.revert();
+            }
+        },
 
-    dateClick: function (info) {
+        dateClick: function (info) {
 
-        formulario.reset();
-        axios.post(baseURL + '/agenda/monstrarTratamiento').
-            then(
-                (respuesta) => {
+            formulario.reset();
+            axios.post(baseURL + '/agenda/monstrarTratamiento').
+                then(
+                    (respuesta) => {
 
-                    var sel = document.getElementById('servicio');
-                    if(!sel.options.length){
-                        for (var i = 0; i < respuesta.data.length; i++) {
-                            //console.log(respuesta.data[i]);
-                            var opt = document.createElement('option');
-                            opt.innerHTML = respuesta.data[i].nombreTratamiento;
-                            opt.value = respuesta.data[i].nombreTratamiento;
-                            sel.appendChild(opt);
+                        var sel = document.getElementById('servicio');
+                        if (!sel.options.length) {
+                            for (var i = 0; i < respuesta.data.length; i++) {
+                                //console.log(respuesta.data[i]);
+                                var opt = document.createElement('option');
+                                opt.innerHTML = respuesta.data[i].nombreTratamiento;
+                                opt.value = respuesta.data[i].nombreTratamiento;
+                                sel.appendChild(opt);
+                            }
+                        }
+                        var select = document.getElementById('servicio');
+                        formulario.title.value = select.options[select.selectedIndex].value;
+                        formulario.start.value = info.dateStr + '\T12:00:00';
+                        formulario.end.value = info.dateStr + '\T12:00:00';
+                        $("#evento").modal("show");
+
+                    }
+                )
+                .catch(
+                    error => {
+                        if (error.response) {
+                            console.log(error.response.data);
                         }
                     }
-                    var select = document.getElementById('servicio');
-                    formulario.title.value = select.options[select.selectedIndex].value;
-                    formulario.start.value = info.dateStr + '\T12:00:00';
-                    formulario.end.value = info.dateStr + '\T12:00:00';
-                    $("#evento").modal("show");
+                )
 
+
+
+        },
+
+        eventClick: function (info) {
+            var cita = info.event;
+
+            axios.post(baseURL + "/agenda/editar/" + info.event.id).
+                then(
+                    (respuesta) => {
+
+                        console.log(respuesta.data.start);
+
+                        formulario.id.value = respuesta.data.id;
+                        formulario.title.value = respuesta.data.title;
+                        formulario.servicio.value = respuesta.data.servicio;
+                        formulario.start.value = respuesta.data.start;
+                        formulario.end.value = respuesta.data.end;
+
+                        $("#evento").modal('show');
+                    }
+                )
+                .catch(
+                    error => {
+                        if (error.response) {
+                            console.log(error.response.data);
+                        }
+                    }
+                )
+        }
+
+    });
+
+    calendar.render();
+
+
+    document.getElementById("btnGuardar").addEventListener("click", function () {
+
+        enviarDatos("/agenda/agregar");
+
+    });
+
+    document.getElementById('btnEliminar').addEventListener('click', function () {
+
+        enviarDatos("/agenda/borrar/" + formulario.id.value);
+
+    });
+
+    document.getElementById('btnModificar').addEventListener('click', function () {
+
+        enviarDatos("/agenda/actualizar/" + formulario.id.value);
+
+    });
+
+    function enviarDatos(url) {
+        formulario.title.value = formulario.servicio.value;
+        const datos = new FormData(formulario);
+        //console.log(datos);
+        const nuevaURL = baseURL + url;
+
+        axios.post(nuevaURL, datos).
+            then(
+                (respuesta) => {
+                    calendar.refetchEvents();
+                    $("#evento").modal('hide');
                 }
             )
             .catch(
@@ -76,82 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             )
-
-
-
-    },
-
-    eventClick: function (info) {
-      var cita = info.event;
-
-      axios.post(baseURL + "/agenda/editar/" + info.event.id).
-        then(
-          (respuesta) => {
-
-            console.log(respuesta.data.start);
-
-            formulario.id.value = respuesta.data.id;
-            formulario.title.value = respuesta.data.title;
-            formulario.servicio.value = respuesta.data.servicio;
-            formulario.start.value = respuesta.data.start;
-            formulario.end.value = respuesta.data.end;
-
-            $("#evento").modal('show');
-          }
-        )
-        .catch(
-          error => {
-            if (error.response) {
-              console.log(error.response.data);
-            }
-          }
-        )
     }
-
-  });
-
-  calendar.render();
-
-
-  document.getElementById("btnGuardar").addEventListener("click", function () {
-
-    enviarDatos("/agenda/agregar");
-
-  });
-
-  document.getElementById('btnEliminar').addEventListener('click', function () {
-
-    enviarDatos("/agenda/borrar/" + formulario.id.value);
-
-  });
-
-  document.getElementById('btnModificar').addEventListener('click', function () {
-
-    enviarDatos("/agenda/actualizar/" + formulario.id.value);
-
-  });
-
-  function enviarDatos(url) {
-    formulario.title.value = formulario.servicio.value;
-    const datos = new FormData(formulario);
-    //console.log(datos);
-    const nuevaURL = baseURL + url;
-
-    axios.post(nuevaURL, datos).
-      then(
-        (respuesta) => {
-          calendar.refetchEvents();
-          $("#evento").modal('hide');
-        }
-      )
-      .catch(
-        error => {
-          if (error.response) {
-            console.log(error.response.data);
-          }
-        }
-      )
-  }
 
 });
 
