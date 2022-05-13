@@ -10,7 +10,10 @@ class PedirCita extends Component
 {
     public Cita $cita;
     public Tratamientos $tratamientos;
-
+    public $selectedClass = null;
+    public $section = null;
+    public $fechaActual = null;
+    public $citaConsulta = null;
 
     public $showDiv;
 
@@ -24,4 +27,16 @@ class PedirCita extends Component
     public function show(){
        $this->showDiv = false;
     }
+    public function mount(){
+        $from = date('2022-05-01');
+        $to = date('2022-05-20');
+
+        $this->citaConsulta = Cita::whereBetween('start', [$from, $to ])->get();
+                        // ->orWhere('end','<', 'now() + INTERVAL 1 DAY')
+                        // ->paginate();
+
+    }
+    // public function mout(){
+    //      $this->fechaActual = date('d-m-Y');
+    // }
  }

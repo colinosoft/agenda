@@ -5,13 +5,18 @@
 
                 <div class="mb-3">
                     <label for="cita" class="form-label fs-2 fw-bold">Selecciones el tratamiento</label>
-                    <select class="form-select" name="servicio" id="servicio">
+                    <select class="form-select" wire:model="selectedClass" name="servicio" id="servicio">
 
                         @foreach ($tratamiento as $tratamient)
-                            <option value="3">{{ $tratamient->nombreTratamiento }}</option>
+                            <option value="{{$tratamient->duracion}}">{{ $tratamient->nombreTratamiento }}</option>
+
                         @endforeach
 
                     </select>
+                </div>
+                {{$selectedClass}}
+                <div>
+                    <h1 wire:model="citaConsulta">{{$citaConsulta}}</h1>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" id="confirmar" wire:click="$toggle('showDiv')"
