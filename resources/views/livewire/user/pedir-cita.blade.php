@@ -14,9 +14,9 @@
 
                     </select>
                 </div>
-                {{$selectedClass}}
+                {{-- {{$selectedClass}} --}}
                 <div>
-                    <h1 wire:model="citaConsulta">{{$citaConsulta}}</h1>
+                    <h1 wire:model="interval">{{$interval}}</h1>
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" id="confirmar" wire:click="$toggle('showDiv')"
