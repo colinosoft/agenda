@@ -14,6 +14,7 @@ class PedirCita extends Controller
      */
     public function index(Request $request)
     {
+        //dd($request);
         $request->user()->authorizeRoles(['user']);
         $user = "";
         return view('user.cita.index', [

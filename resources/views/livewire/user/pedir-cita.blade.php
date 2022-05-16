@@ -16,7 +16,7 @@
                 </div>
                 {{-- {{$selectedClass}} --}}
                 <div>
-                    <h1 wire:model="interval">{{$interval}}</h1>
+                    {{-- <h1 wire:model="interval">{{$section}}</h1> --}}
                 </div>
                 <div class="d-grid gap-2">
                     <button type="submit" id="confirmar" wire:click="$toggle('showDiv')"
@@ -29,17 +29,12 @@
             <div class="row justify-content-md-center mt-5">
                 <div class="col-md-4">
                     <ul class="list-group">
-                        {{-- @foreach ($citas as $cita) --}}
-                            <li class="list-group-item d-flex justify-content-between align-items-center btn-success">
-                             11:00
+                         @foreach ($section as $sec)
+                            <li wire:model="interval" class="list-group-item d-flex justify-content-between align-items-center btn-success">
+                                {{$sec}}
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center btn-success">
-                               11:30
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center btn-success">
-                                12:00
-                            </li>
-                        {{-- @endforeach --}}
+
+                         @endforeach
 
                     </ul>
                 </div>
