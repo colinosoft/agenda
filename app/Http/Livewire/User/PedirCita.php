@@ -7,6 +7,7 @@ use App\Models\Cita;
 use App\Models\Tratamientos;
 use DateTime;
 use DateInterval;
+use IntlDateFormatter;
 
 class PedirCita extends Component
 {
@@ -15,10 +16,19 @@ class PedirCita extends Component
     public Tratamientos $tratamientos;
     public $selectedClass = null;
     public $section = [];
+    public $intervalClass = null;
+    public $fechaseleccion = null;
     public $suma = 1;
     public $showDiv;
 
 
+    protected $listeners = ['horaReserva'];
+
+    public function horaReserva($hora)
+    {
+        // dd($this->tratamientos);
+        $this->fechaseleccion = $hora;
+    }
 
     protected $rules = [
         'interval' =>  ['requiered']
@@ -37,12 +47,10 @@ class PedirCita extends Component
 
         $this->showDiv = false;
     }
+    public function updatingintervalClass($fecha){
 
-    function calculateMinutes(DateInterval $int){
-        $days = $int->format('%a');
-        return ($days * 24 * 60) + ($int->h * 60) + $int->i;
+        $this->fechaseleccion = $fecha;
     }
-
 
     public function updatedSelectedClass($duracion)
     {
@@ -50,9 +58,9 @@ class PedirCita extends Component
         setlocale(LC_ALL, 'esn');
 
 
-        $from = date('Y-m-d h:i:s');
-        $to = new DateTime($from);
-        date_add($to, date_interval_create_from_date_string('3 days'));
+        $from = date_add(new DateTime(),date_interval_create_from_date_string('1 days'));
+        // $to = new DateTime($from);
+        $to = date_add(new DateTime(), date_interval_create_from_date_string('4 days'));
 
         $citaConsulta = Cita::whereBetween('start', [$from, $to])->get();
         // ->orWhere('end','<', 'now() + INTERVAL 1 DAY')
@@ -69,12 +77,12 @@ class PedirCita extends Component
 
         // }
         $listaEspacioLibres = [];
-        for ($i = 0; $i < count($citaConsulta); $i++ ) {
+        for ($i = 0; $i < count($citaConsulta); $i++) {
 
-            if( (count($citaConsulta) -1) !== $i){
+            if ((count($citaConsulta) - 1) !== $i) {
                 $fin = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[$i]->end);
 
-                $inicio = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[$i+1]->start);
+                $inicio = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[$i + 1]->start);
 
                 // $interval = $inicio->diff($fin);
                 // $this->section = $interval->format('%r%y years, %m months, %d days, %h hours, %i minutes, %s seconds');
@@ -85,18 +93,40 @@ class PedirCita extends Component
 
                 $diferenciaMin = abs(($inicio->getTimestamp()) - ($fin->getTimestamp())) / 60;
                 //Hay espacio para la cita
-                if($diferenciaMin >= $duracion){
+                if ($diferenciaMin >= $duracion) {
+
+                    $horasPosibles = round($diferenciaMin / $duracion);
+
+                    $listaEspacioLibres[] =  $fin->format('d-m-Y H:i:s');
+
+                    // if($horasPosibles > 1){
+                    // $listaEspacioLibres[] = $citaConsulta[$i]->end;
+                    for ($e = 1; $e < $horasPosibles; $e++) {
+                        // $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+                        //  $addDuracion =  strftime("%A día %d a las %H:%M",$fin->getTimestamp());
+                        //  $listaEspacioLibres[] = $addDuracion;
+
+                        $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $duracion . 'M')))->format('d-m-Y H:i:s');
+                    }
+
+                    // }else {
+                    //     // $listaEspacioLibres[] = $citaConsulta[$i]->end;
+                    //     // $listaEspacioLibres[] = $horasPosibles;
+                    // }
+
 
                     // $listaEspacioLibres[] =  strftime("%A día %d a las %H:%M",$fin->getTimestamp());
-                $listaEspacioLibres[] = $fin->format('Y-m-d H:i:s');
-                //No hay espacio para la cita
-                }else {
-                     $this->section = "No quedan espacios para las citas";
+
+
+                    // //No hay espacio para la cita
+                } else {
+
+                    $this->section = "No quedan espacios para las citas";
                 }
             }
         }
-        // dd($listaEspacioLibres);
-        $this->section = $listaEspacioLibres ;
-    }
 
+        // dd($listaEspacioLibres);
+        $this->section = $listaEspacioLibres;
+    }
 }
