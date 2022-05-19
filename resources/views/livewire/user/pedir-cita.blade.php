@@ -7,7 +7,9 @@
                     <select class="form-select" wire:model="selectedClass" name="servicio" id="servicio">
 
                         @foreach ($tratamiento as $tratamient)
-                            <option value="{{$tratamient->duracion }}" id={{$tratamient->id}}>{{ $tratamient->nombreTratamiento }}
+                            <option   wire:click="$emit('nombre', '{{ $tratamient->nombreTratamiento }}') "
+                                 value="{{$tratamient->duracion}},{{$tratamient->id}},{{$tratamient->nombreTratamiento}}" >{{ $tratamient->nombreTratamiento }}
+
                             </option>
                         @endforeach
 
@@ -17,10 +19,10 @@
                 <div>
                     {{-- <h1 wire:model="interval">{{$section}}</h1> --}}
                 </div>
-                <div class="d-grid gap-2">
+                {{-- <div class="d-grid gap-2">
                     <button type="submit" id="confirmar" wire:click="$toggle('showDiv')"
                         class="btn btn-primary">Confirmar</button>
-                </div>
+                </div> --}}
             </div>
         </div>
 
@@ -36,12 +38,12 @@
                 </select> --}}
 
 
-                <div class="list-group" id="servicio" role="servicio">
-                    @foreach ($section as $sec)
-                        <li wire:click="$emit('horaReserva', '{{ $sec }}') " wire:ignore
-                            class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                            data-bs-toggle="list">
-                            {{ $sec }}
+                <div  wire:model="selectedClass" class="list-group" id="servicio" role="servicio">
+
+                    @foreach ($section as $hora)
+                        <li wire:click="$emit('horaReserva', '{{ $hora }}') " wire:ignore
+                        class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-bs-toggle="list">
+                            {{ $hora }}
                         </li>
                     @endforeach
 
@@ -52,9 +54,9 @@
             <div class="col-md-4">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h5 class="card-title">Ha seleccionado: </h5>
-                        <p class="card-text">Para el dia {{ $fechaseleccion }}</p>
-                        <a href="#" class="btn btn-primary">Confirmar</a>
+                        <h5 class="card-title">Ha seleccionado: {{$nombreSeleccion}} </h5>
+                        <p class="card-text">Para el dia: {{ $fechaseleccion }}</p>
+                        <a wire:click="$emit('guardarCita', '{{ $nombreSeleccion }}') " href="#" class="btn btn-primary">Confirmar</a>
                     </div>
                 </div>
             </div>

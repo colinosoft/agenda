@@ -8,6 +8,7 @@ use App\Models\Tratamientos;
 use DateTime;
 use DateInterval;
 use IntlDateFormatter;
+use PhpParser\Node\Expr\FuncCall;
 
 class PedirCita extends Component
 {
@@ -18,16 +19,26 @@ class PedirCita extends Component
     public $section = [];
     public $intervalClass = null;
     public $fechaseleccion = null;
+    public $nombreTratamieto;
     public $suma = 1;
     public $showDiv;
+    public $nombreSeleccion;
 
 
-    protected $listeners = ['horaReserva'];
+    protected $listeners = ['horaReserva','guardarCita'];
 
     public function horaReserva($hora)
     {
-        // dd($this->tratamientos);
         $this->fechaseleccion = $hora;
+    }
+    public function nombre($nombre)
+    {
+
+        $this->nombreSeleccion = $nombre;
+    }
+
+    public function guardarCita($nombreSeleccion){
+        dd($nombreSeleccion);
     }
 
     protected $rules = [
@@ -47,14 +58,14 @@ class PedirCita extends Component
 
         $this->showDiv = false;
     }
-    public function updatingintervalClass($fecha){
 
-        $this->fechaseleccion = $fecha;
-    }
-
-    public function updatedSelectedClass($duracion)
+    public function updatedSelectedClass($mensaje)
     {
 
+        $mensaje = explode (",", $mensaje);
+        $duracion = $mensaje[0];
+        $idTratamiento = $mensaje[1];
+        $nombreTratamieto = $mensaje[2];
         setlocale(LC_ALL, 'esn');
 
 
@@ -125,8 +136,9 @@ class PedirCita extends Component
                 }
             }
         }
-
-        // dd($listaEspacioLibres);
+        PedirCita::nombre($nombreTratamieto);
         $this->section = $listaEspacioLibres;
+
+
     }
 }
