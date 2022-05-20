@@ -9,6 +9,7 @@ use DateTime;
 use DateInterval;
 use IntlDateFormatter;
 use PhpParser\Node\Expr\FuncCall;
+use DB;
 
 class PedirCita extends Component
 {
@@ -19,6 +20,7 @@ class PedirCita extends Component
     public $section = [];
     public $intervalClass = null;
     public $fechaseleccion = null;
+    public $duracion = null;
     public $nombreTratamieto;
     public $suma = 1;
     public $showDiv;
@@ -29,7 +31,9 @@ class PedirCita extends Component
 
     public function horaReserva($hora)
     {
+
         $this->fechaseleccion = $hora;
+
     }
     public function nombre($nombre)
     {
@@ -38,7 +42,19 @@ class PedirCita extends Component
     }
 
     public function guardarCita($nombreSeleccion){
-        dd($nombreSeleccion);
+        $fechaIncio =  DateTime::createFromFormat('d-m-Y H:i:s',$this->fechaseleccion);
+        $fechaFin = DateTime::createFromFormat('d-m-Y H:i:s', $this->fechaseleccion);
+
+        DB::table('citas')->insert([
+            'title' => $nombreSeleccion,
+            'servicio' => $nombreSeleccion,
+            'start' => $fechaIncio->format('Y-m-d H:i:s'),
+            'end' => $fechaFin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('Y-m-d H:i:s'),
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+        ]);
+
+
     }
 
     protected $rules = [
@@ -61,9 +77,9 @@ class PedirCita extends Component
 
     public function updatedSelectedClass($mensaje)
     {
-
+        ;
         $mensaje = explode (",", $mensaje);
-        $duracion = $mensaje[0];
+        $this->duracion = $mensaje[0];
         $idTratamiento = $mensaje[1];
         $nombreTratamieto = $mensaje[2];
         setlocale(LC_ALL, 'esn');
@@ -73,7 +89,8 @@ class PedirCita extends Component
         // $to = new DateTime($from);
         $to = date_add(new DateTime(), date_interval_create_from_date_string('4 days'));
 
-        $citaConsulta = Cita::whereBetween('start', [$from, $to])->get();
+        $citaConsulta = Cita::whereBetween('start', [$from, $to])->orderBy('start')->get();
+        // dd($citaConsulta);
         // ->orWhere('end','<', 'now() + INTERVAL 1 DAY')
         // ->paginate();
 
@@ -104,9 +121,9 @@ class PedirCita extends Component
 
                 $diferenciaMin = abs(($inicio->getTimestamp()) - ($fin->getTimestamp())) / 60;
                 //Hay espacio para la cita
-                if ($diferenciaMin >= $duracion) {
+                if ($diferenciaMin >= $this->duracion) {
 
-                    $horasPosibles = round($diferenciaMin / $duracion);
+                    $horasPosibles = round($diferenciaMin / $this->duracion);
 
                     $listaEspacioLibres[] =  $fin->format('d-m-Y H:i:s');
 
@@ -117,7 +134,7 @@ class PedirCita extends Component
                         //  $addDuracion =  strftime("%A día %d a las %H:%M",$fin->getTimestamp());
                         //  $listaEspacioLibres[] = $addDuracion;
 
-                        $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $duracion . 'M')))->format('d-m-Y H:i:s');
+                        $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
                     }
 
                     // }else {
@@ -136,6 +153,7 @@ class PedirCita extends Component
                 }
             }
         }
+
         PedirCita::nombre($nombreTratamieto);
         $this->section = $listaEspacioLibres;
 

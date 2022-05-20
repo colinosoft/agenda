@@ -53,7 +53,7 @@
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-4">
                 <div class="card text-center">
-                    <div class="card-body">
+                    <div wire:poll.guardarCita class="card-body">
                         <h5 class="card-title">Ha seleccionado: {{$nombreSeleccion}} </h5>
                         <p class="card-text">Para el dia: {{ $fechaseleccion }}</p>
                         <a wire:click="$emit('guardarCita', '{{ $nombreSeleccion }}') " href="#" class="btn btn-primary">Confirmar</a>
