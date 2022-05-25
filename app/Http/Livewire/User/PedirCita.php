@@ -22,12 +22,11 @@ class PedirCita extends Component
     public $fechaseleccion = null;
     public $duracion = null;
     public $nombreTratamieto;
-    public $suma = 1;
-    public $showDiv;
     public $nombreSeleccion;
 
 
     protected $listeners = ['horaReserva','guardarCita'];
+
 
     public function horaReserva($hora)
     {
@@ -45,7 +44,7 @@ class PedirCita extends Component
         $fechaIncio =  DateTime::createFromFormat('d-m-Y H:i:s',$this->fechaseleccion);
         $fechaFin = DateTime::createFromFormat('d-m-Y H:i:s', $this->fechaseleccion);
 
-        DB::table('citas')->insert([
+        Cita::created([
             'title' => $nombreSeleccion,
             'servicio' => $nombreSeleccion,
             'start' => $fechaIncio->format('Y-m-d H:i:s'),
@@ -53,8 +52,7 @@ class PedirCita extends Component
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);
-
-
+        $this->render();
     }
 
     protected $rules = [
@@ -90,6 +88,7 @@ class PedirCita extends Component
         $to = date_add(new DateTime(), date_interval_create_from_date_string('4 days'));
 
         $citaConsulta = Cita::whereBetween('start', [$from, $to])->orderBy('start')->get();
+
         // dd($citaConsulta);
         // ->orWhere('end','<', 'now() + INTERVAL 1 DAY')
         // ->paginate();
@@ -120,6 +119,7 @@ class PedirCita extends Component
                 // $this->listaEspacioLibres[] = $inicio->format('Y-m-d H:i:s');
 
                 $diferenciaMin = abs(($inicio->getTimestamp()) - ($fin->getTimestamp())) / 60;
+
                 //Hay espacio para la cita
                 if ($diferenciaMin >= $this->duracion) {
 

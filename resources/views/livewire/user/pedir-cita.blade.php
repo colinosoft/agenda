@@ -38,10 +38,10 @@
                 </select> --}}
 
 
-                <div  wire:model="selectedClass" class="list-group" id="servicio" role="servicio">
+                <div  wire:model.defer="selectedClass" class="list-group" id="servicio" role="servicio">
 
                     @foreach ($section as $hora)
-                        <li wire:click="$emit('horaReserva', '{{ $hora }}') " wire:ignore
+                        <li wire:click="$emit('horaReserva', '{{ $hora }}') "
                         class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" data-bs-toggle="list">
                             {{ $hora }}
                         </li>
@@ -53,7 +53,7 @@
         <div class="row justify-content-md-center mt-5">
             <div class="col-md-4">
                 <div class="card text-center">
-                    <div wire:poll.guardarCita class="card-body">
+                    <div class="card-body">
                         <h5 class="card-title">Ha seleccionado: {{$nombreSeleccion}} </h5>
                         <p class="card-text">Para el dia: {{ $fechaseleccion }}</p>
                         <a wire:click="$emit('guardarCita', '{{ $nombreSeleccion }}') " href="#" class="btn btn-primary">Confirmar</a>
