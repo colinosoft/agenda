@@ -9,8 +9,7 @@ class Cita extends Model
 {
     use HasFactory;
 
-    static $rules=[
-
+    public static $rules=[
         'title'=>'required',
         'servicio'=>'required',
         'start'=>'required',

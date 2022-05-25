@@ -25,6 +25,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    @livewireStyles
+
     <!-- URL Global del proyecto -->
     <script type="text/javascript">
         var baseURL = {!! json_encode(url('/')) !!}
@@ -59,5 +61,7 @@
 
     </div>
     {{-- <script src="{{ asset('js/agenda.js') }}" defer></script> --}}
+
 </body>
 </html>
+

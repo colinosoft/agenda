@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Tratamientos extends Model
 {
     use HasFactory;
-    static $rules=[
 
+    static $rules=[
         'nombreTratamiento'=>'required',
         'duracion'=>'required',
         'cabina'=>'required'

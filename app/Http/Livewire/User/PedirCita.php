@@ -7,8 +7,6 @@ use App\Models\Cita;
 use App\Models\Tratamientos;
 use DateTime;
 use DateInterval;
-use IntlDateFormatter;
-use PhpParser\Node\Expr\FuncCall;
 use DB;
 
 class PedirCita extends Component
@@ -44,7 +42,7 @@ class PedirCita extends Component
         $fechaIncio =  DateTime::createFromFormat('d-m-Y H:i:s',$this->fechaseleccion);
         $fechaFin = DateTime::createFromFormat('d-m-Y H:i:s', $this->fechaseleccion);
 
-        Cita::created([
+        $insert = DB::table('citas')->insert([
             'title' => $nombreSeleccion,
             'servicio' => $nombreSeleccion,
             'start' => $fechaIncio->format('Y-m-d H:i:s'),
@@ -52,7 +50,7 @@ class PedirCita extends Component
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
         ]);
-        $this->render();
+        return redirect(route('cita'));
     }
 
     protected $rules = [
@@ -75,7 +73,7 @@ class PedirCita extends Component
 
     public function updatedSelectedClass($mensaje)
     {
-        ;
+
         $mensaje = explode (",", $mensaje);
         $this->duracion = $mensaje[0];
         $idTratamiento = $mensaje[1];
@@ -124,7 +122,6 @@ class PedirCita extends Component
                 if ($diferenciaMin >= $this->duracion) {
 
                     $horasPosibles = round($diferenciaMin / $this->duracion);
-
                     $listaEspacioLibres[] =  $fin->format('d-m-Y H:i:s');
 
                     // if($horasPosibles > 1){
@@ -136,6 +133,12 @@ class PedirCita extends Component
 
                         $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
                     }
+                    // if($horasPosibles <= 10){
+
+                    //     for($c = 0; $c < (10 - $horasPosibles); $c++){
+                    //         $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+                    //     }
+                    // }
 
                     // }else {
                     //     // $listaEspacioLibres[] = $citaConsulta[$i]->end;
