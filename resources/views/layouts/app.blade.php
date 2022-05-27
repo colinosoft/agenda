@@ -15,11 +15,15 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/main.js') }}" defer></script>
     <script src="{{ asset('js/locales-all.js') }}" defer></script>
+    <script src="{{ asset('js/scripts.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -46,22 +50,19 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    {{-- <ul class="navbar-nav me-auto">
 
-                    </ul>
+                    </ul> --}}
 
                     @include('includes.menu')
                 </div>
             </div>
         </nav>
 
-         <main class="py-4">
-            @yield('content')
-        </main>
+        {{-- Inserto toda la pagina de incio --}}
+        @yield('content')
 
     </div>
-    {{-- <script src="{{ asset('js/agenda.js') }}" defer></script> --}}
-
 </body>
 </html>
 

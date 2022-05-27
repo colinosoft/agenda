@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\TratamientosController;
 use App\Http\Controllers\User\PedirCita;
+use Illuminate\Support\Facades\Auth;
 
 // use App\Http\Controllers\Auth;
 
@@ -13,7 +14,7 @@ use App\Http\Controllers\User\PedirCita;
 //     return view('agenda.agenda');
 // }) -> middleware('auth');
 
-Auth::routes();
+
 
 //Home
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('inicio');
@@ -49,3 +50,5 @@ Route::post('/agenda/actualizar/{cita}', [App\Http\Controllers\CitaController::c
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
