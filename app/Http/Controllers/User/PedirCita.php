@@ -14,12 +14,21 @@ class PedirCita extends Controller
      */
     public function index(Request $request)
     {
-        //dd($request);
-        $request->user()->authorizeRoles(['user']);
-        $user = "";
-        return view('user.cita.index', [
-            "user" => $user
-        ]);
+        if (is_null($request->user())) {
+
+            return view('index');
+
+        } else {
+
+            $request->user()->authorizeRoles(['user', 'admin']);
+            $user = "";
+            $admin = "";
+
+            return view('user.cita.index', [
+                "user" => $user,
+                "admin" => $admin
+            ]);
+        }
     }
 
     /**

@@ -23,14 +23,13 @@ class PedirCita extends Component
     public $nombreSeleccion;
 
 
-    protected $listeners = ['horaReserva','guardarCita'];
+    protected $listeners = ['horaReserva', 'guardarCita'];
 
 
     public function horaReserva($hora)
     {
 
         $this->fechaseleccion = $hora;
-
     }
     public function nombre($nombre)
     {
@@ -38,8 +37,9 @@ class PedirCita extends Component
         $this->nombreSeleccion = $nombre;
     }
 
-    public function guardarCita($nombreSeleccion){
-        $fechaIncio =  DateTime::createFromFormat('d-m-Y H:i:s',$this->fechaseleccion);
+    public function guardarCita($nombreSeleccion)
+    {
+        $fechaIncio =  DateTime::createFromFormat('d-m-Y H:i:s', $this->fechaseleccion);
         $fechaFin = DateTime::createFromFormat('d-m-Y H:i:s', $this->fechaseleccion);
 
         $insert = DB::table('citas')->insert([
@@ -74,18 +74,39 @@ class PedirCita extends Component
     public function updatedSelectedClass($mensaje)
     {
 
-        $mensaje = explode (",", $mensaje);
+        $mensaje = explode(",", $mensaje);
         $this->duracion = $mensaje[0];
         $idTratamiento = $mensaje[1];
         $nombreTratamieto = $mensaje[2];
         setlocale(LC_ALL, 'esn');
+        $listaEspacioLibres = [];
+        $listaFinal= [];
 
-
-        $from = date_add(new DateTime(),date_interval_create_from_date_string('1 days'));
+        $from = date_add(new DateTime(), date_interval_create_from_date_string('1 days'));
         // $to = new DateTime($from);
         $to = date_add(new DateTime(), date_interval_create_from_date_string('4 days'));
 
         $citaConsulta = Cita::whereBetween('start', [$from, $to])->orderBy('start')->get();
+
+        $horaFechaIncio = date('Y-m-d 08:00:00', strtotime(date('Y-m-d 10:00:00') . "+1 days"));
+        $horaFechaFin = date('Y-m-d 20:00:00', strtotime(date('Y-m-d 20:00:00') . "+4  days"));
+        $horaIncio =   date_add(new DateTime('10:00:00'), date_interval_create_from_date_string('1 days '));
+        $horaPrueba =   date_add(new DateTime('20:00:00'), date_interval_create_from_date_string('1 days '));
+
+        if (count($citaConsulta) > 0) {
+            $inicio = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[0]->start);
+            $diferenciaMin1 = abs(($horaIncio->getTimestamp()) - ($inicio->getTimestamp())) / 60;
+
+            if ($diferenciaMin1 >= $this->duracion) {
+
+                $horasPosibles = round($diferenciaMin1 / $this->duracion);
+
+                for ($e = 1; $e < 10; $e++) {
+
+                    $listaEspacioLibres[] =  $horaIncio->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+                }
+            }
+        }
 
         // dd($citaConsulta);
         // ->orWhere('end','<', 'now() + INTERVAL 1 DAY')
@@ -101,65 +122,71 @@ class PedirCita extends Component
         //     $this->section = $index;
 
         // }
-        $listaEspacioLibres = [];
-        for ($i = 0; $i < count($citaConsulta); $i++) {
 
-            if ((count($citaConsulta) - 1) !== $i) {
-                $fin = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[$i]->end);
 
-                $inicio = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[$i + 1]->start);
 
-                // $interval = $inicio->diff($fin);
-                // $this->section = $interval->format('%r%y years, %m months, %d days, %h hours, %i minutes, %s seconds');
-                // $interval =  $inicio->diff($fin);
-                // $min = PedirCita::calculateMinutes($interval);
+            for ($i = 0; $i < count($citaConsulta); $i++) {
 
-                // $this->listaEspacioLibres[] = $inicio->format('Y-m-d H:i:s');
+                if ((count($citaConsulta) - 1) !== $i) {
+                    $fin = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[$i]->end);
 
-                $diferenciaMin = abs(($inicio->getTimestamp()) - ($fin->getTimestamp())) / 60;
+                    $inicio = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[$i + 1]->start);
 
-                //Hay espacio para la cita
-                if ($diferenciaMin >= $this->duracion) {
+                    // $interval = $inicio->diff($fin);
+                    // $this->section = $interval->format('%r%y years, %m months, %d days, %h hours, %i minutes, %s seconds');
+                    // $interval =  $inicio->diff($fin);
+                    // $min = PedirCita::calculateMinutes($interval);
 
-                    $horasPosibles = round($diferenciaMin / $this->duracion);
-                    $listaEspacioLibres[] =  $fin->format('d-m-Y H:i:s');
+                    // $this->listaEspacioLibres[] = $inicio->format('Y-m-d H:i:s');
 
-                    // if($horasPosibles > 1){
-                    // $listaEspacioLibres[] = $citaConsulta[$i]->end;
-                    for ($e = 1; $e < $horasPosibles; $e++) {
-                        // $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
-                        //  $addDuracion =  strftime("%A día %d a las %H:%M",$fin->getTimestamp());
-                        //  $listaEspacioLibres[] = $addDuracion;
+                    $diferenciaMin = abs(($inicio->getTimestamp()) - ($fin->getTimestamp())) / 60;
 
-                        $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+                    //Hay espacio para la cita
+                    if ($diferenciaMin >= $this->duracion) {
+
+                        $horasPosibles = round($diferenciaMin / $this->duracion);
+                        $listaEspacioLibres[] =  $fin->format('d-m-Y H:i:s');
+
+                        // if($horasPosibles > 1){
+                        // $listaEspacioLibres[] = $citaConsulta[$i]->end;
+                        for ($e = 1; $e < $horasPosibles; $e++) {
+                            // $time->add(new DateInterval('PT' . $minutes_to_add . 'M'));
+                            //  $addDuracion =  strftime("%A día %d a las %H:%M",$fin->getTimestamp());
+                            //  $listaEspacioLibres[] = $addDuracion;
+
+                            $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+                        }
+
+                        // if($horasPosibles <= 10){
+
+                        //     for($c = 0; $c < (10 - $horasPosibles); $c++){
+                        //         $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+                        //     }
+                        // }
+
+                        // }else {
+                        //     // $listaEspacioLibres[] = $citaConsulta[$i]->end;
+                        //     // $listaEspacioLibres[] = $horasPosibles;
+                        // }
+
+
+                        // $listaEspacioLibres[] =  strftime("%A día %d a las %H:%M",$fin->getTimestamp());
+
+
+                        // //No hay espacio para la cita
+                    } else {
+
+                        $this->section = "No quedan espacios para las citas";
                     }
-                    // if($horasPosibles <= 10){
-
-                    //     for($c = 0; $c < (10 - $horasPosibles); $c++){
-                    //         $listaEspacioLibres[] =  $fin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
-                    //     }
-                    // }
-
-                    // }else {
-                    //     // $listaEspacioLibres[] = $citaConsulta[$i]->end;
-                    //     // $listaEspacioLibres[] = $horasPosibles;
-                    // }
-
-
-                    // $listaEspacioLibres[] =  strftime("%A día %d a las %H:%M",$fin->getTimestamp());
-
-
-                    // //No hay espacio para la cita
-                } else {
-
-                    $this->section = "No quedan espacios para las citas";
                 }
             }
-        }
+
 
         PedirCita::nombre($nombreTratamieto);
-        $this->section = $listaEspacioLibres;
 
-
+        for($i = 0; $i < 10; $i++){
+            $listaFinal[] =  $listaEspacioLibres[$i];
+        }
+        $this->section = $listaFinal;
     }
 }
