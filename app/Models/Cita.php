@@ -12,13 +12,15 @@ class Cita extends Model
     use HasFactory;
 
     public static $rules=[
+        'id_user' => 'required',
+        'id_tratamiento' => 'required',
         'title'=>'required',
         'servicio'=>'required',
         'start'=>'required',
         'end'=>'required'
     ];
 
-    protected $fillable=['title','servicio','start','end'];
+    protected $fillable=['id_user','id_tratamiento','title','servicio','start','end'];
 
     public function user(){
 

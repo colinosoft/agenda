@@ -78,6 +78,7 @@ class CitaController extends Controller
      */
     public function update(Request $request, Cita $cita)
     {
+
         request()->validate(Cita::$rules);
         $cita->update($request->all());
         return response()->json($cita);

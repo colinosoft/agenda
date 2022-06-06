@@ -30,15 +30,10 @@
                           <input type="text" class="form-control" name="title" id="title" aria-describedby="helpId" placeholder="">
                           <small id="helpId" class="form-text text-muted"></small>
                         </div>
-                      
+
                         <div class="mb-3">
                           <label for="servicio" class="form-label"></label>
                           <select class="form-control" name="servicio" id="servicio">
-                          <!-- <option>Depilación</option>
-                            <option>Uñas</option>
-                            <option>Laser</option>
-                            <option>Rayos</option>
-                            <option>Limpieza</option> -->
                           </select>
                         </div>
 

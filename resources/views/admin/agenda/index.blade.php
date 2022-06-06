@@ -34,10 +34,12 @@
                                 <small id="helpId" class="form-text text-muted">Help text</small>
                             </div>
 
-                            <div id="divCheckbox" style="display: none;">
-                                <input type="text" class="form-control" name="idTratamiento" id="idTratamiento" aria-describedby="helpId"
+                                <input style="display: none;" type="text" class="form-control" name="id_user" id="id_user" aria-describedby="helpId"
                                     placeholder="">
-                            </div>
+
+                                <input style="display: none;" type="text" class="form-control" name="id_tratamiento" id="id_tratamiento" aria-describedby="helpId"
+                                    placeholder="">
+
 
                             <div class="mb-3 d-none">
                                 <label for="Titulo" class="form-label"></label>
@@ -49,11 +51,7 @@
                             <div class="mb-3">
                                 <label for="servicio" class="form-label"></label>
                                 <select class="form-control" name="servicio" id="servicio">
-                                    <!-- <option>Depilación</option>
-                                <option>Uñas</option>
-                                <option>Laser</option>
-                                <option>Rayos</option>
-                                <option>Limpieza</option> -->
+
                                 </select>
                             </div>
 

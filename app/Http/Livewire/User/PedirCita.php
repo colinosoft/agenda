@@ -98,9 +98,26 @@ class PedirCita extends Component
         $horaIncio =   date_add(new DateTime('10:00:00'), date_interval_create_from_date_string('1 days '));
         $horaPrueba =   date_add(new DateTime('20:00:00'), date_interval_create_from_date_string('1 days '));
 
+        //Si hay alguna cita calculo los huecos por delante con un maximo de 10
         if (count($citaConsulta) > 0) {
+
             $inicio = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[0]->start);
             $diferenciaMin1 = abs(($horaIncio->getTimestamp()) - ($inicio->getTimestamp())) / 60;
+
+            if ($diferenciaMin1 >= $this->duracion) {
+
+                $horasPosibles = round($diferenciaMin1 / $this->duracion);
+
+                for ($e = 0; $e <= 10; $e++) {
+
+                    $listaEspacioLibres[] =  $horaIncio->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+                }
+            }
+        //Si no hay ninguna cita asigno 10 huecos temporales
+        }else {
+
+
+            $diferenciaMin1 = abs(($horaIncio->getTimestamp()) - (strtotime($horaFechaIncio))) / 60;
 
             if ($diferenciaMin1 >= $this->duracion) {
 
