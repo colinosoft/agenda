@@ -5,6 +5,8 @@ namespace App\Http\Livewire\User;
 use Livewire\Component;
 use App\Models\Cita;
 use App\Models\Tratamientos;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use DateTime;
 use DateInterval;
 use DB;
@@ -31,19 +33,22 @@ class PedirCita extends Component
 
         $this->fechaseleccion = $hora;
     }
-    public function nombre($nombre)
+    public function nombre($nombre, $idTratamiento)
     {
-
         $this->nombreSeleccion = $nombre;
+        $this->idTratamiento = $idTratamiento;
     }
 
-    public function guardarCita($nombreSeleccion)
+    public function guardarCita($nombreSeleccion,$idTratamiento)
     {
+
         $fechaIncio =  DateTime::createFromFormat('d-m-Y H:i:s', $this->fechaseleccion);
         $fechaFin = DateTime::createFromFormat('d-m-Y H:i:s', $this->fechaseleccion);
 
         $insert = DB::table('citas')->insert([
             'title' => $nombreSeleccion,
+            'id_user' => Auth::user()->id,
+            'id_tratamiento' => $idTratamiento,
             'servicio' => $nombreSeleccion,
             'start' => $fechaIncio->format('Y-m-d H:i:s'),
             'end' => $fechaFin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('Y-m-d H:i:s'),
@@ -101,7 +106,7 @@ class PedirCita extends Component
 
                 $horasPosibles = round($diferenciaMin1 / $this->duracion);
 
-                for ($e = 1; $e < 10; $e++) {
+                for ($e = 0; $e <= 10; $e++) {
 
                     $listaEspacioLibres[] =  $horaIncio->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
                 }
@@ -182,10 +187,12 @@ class PedirCita extends Component
             }
 
 
-        PedirCita::nombre($nombreTratamieto);
+        PedirCita::nombre($nombreTratamieto, $idTratamiento);
 
-        for($i = 0; $i < 10; $i++){
-            $listaFinal[] =  $listaEspacioLibres[$i];
+        if(!empty($listaEspacioLibres)){
+            for($i = 0; $i < 10; $i++){
+                $listaFinal[] =  $listaEspacioLibres[$i];
+            }
         }
         $this->section = $listaFinal;
     }

@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         dateClick: function (info) {
 
             formulario.reset();
+            var lista = [];
             axios.post(baseURL + '/agenda/monstrarTratamiento').
                 then(
                     (respuesta) => {
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         var sel = document.getElementById('servicio');
                         if (!sel.options.length) {
                             for (var i = 0; i < respuesta.data.length; i++) {
-                                //console.log(respuesta.data[i]);
+                                lista.push( respuesta.data[i]);
                                 var opt = document.createElement('option');
                                 opt.innerHTML = respuesta.data[i].nombreTratamiento;
                                 opt.value = respuesta.data[i].nombreTratamiento;
@@ -63,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
                         var select = document.getElementById('servicio');
                         formulario.title.value = select.options[select.selectedIndex].value;
+                        console.log(lista[select.selectedIndex]);
+                        // formulario.idTratamiento.value = selec
                         formulario.start.value = info.dateStr + '\T12:00:00';
                         formulario.end.value = info.dateStr + '\T12:00:00';
                         $("#evento").modal("show");
@@ -88,8 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 then(
                     (respuesta) => {
 
-                        console.log(respuesta.data.start);
 
+                        console.log(respuesta.data);
                         formulario.id.value = respuesta.data.id;
                         formulario.title.value = respuesta.data.title;
                         formulario.servicio.value = respuesta.data.servicio;

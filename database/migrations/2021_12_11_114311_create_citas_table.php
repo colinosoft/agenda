@@ -15,12 +15,25 @@ class CreateCitasTable extends Migration
     {
         Schema::create('citas', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("id_user");
+            $table->unsignedBigInteger("id_tratamiento");
             $table->string("title",255);
             $table->string("servicio",255);
             $table->dateTime("start");
             $table->dateTime("end");
             $table->timestamps();
+
+            $table->foreign('id_user')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+                $table->foreign('id_tratamiento')
+                ->references('id')
+                ->on('tratamientos')
+                ->onDelete('cascade');
         });
+
     }
 
     /**
@@ -30,6 +43,6 @@ class CreateCitasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eventos');
+        Schema::dropIfExists('citas');
     }
 }

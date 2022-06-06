@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Tratamientos;
 
 class Cita extends Model
 {
@@ -17,4 +19,15 @@ class Cita extends Model
     ];
 
     protected $fillable=['title','servicio','start','end'];
+
+    public function user(){
+
+        return $this->belongsToMany(User::class)->withTimestamps();
+
+    }
+    public function tratamiento(){
+
+        return $this->belongsToMany(Tratamientos::class)->withTimestamps();
+
+    }
 }

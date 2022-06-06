@@ -6,7 +6,7 @@
                     <label for="cita" class="form-label fs-2 fw-bold">Seleccione el tratamiento</label>
                     <select class="form-select" wire:model="selectedClass" name="servicio" id="servicio">
                         @foreach ($tratamiento as $tratamient)
-                            <option wire:click="$emit('nombre', '{{ $tratamient->nombreTratamiento }}') "
+                            <option wire:click="$emit('nombre', '{{ $tratamient->nombreTratamiento }}' ,'{{$tratamient->id}}') "
                                 value="{{ $tratamient->duracion }},{{ $tratamient->id }},{{ $tratamient->nombreTratamiento }}">
                                 {{ $tratamient->nombreTratamiento }}
 
@@ -38,7 +38,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Ha seleccionado: {{ $nombreSeleccion }} </h5>
                             <p class="card-text">Para el dia: {{ $fechaseleccion }}</p>
-                            <a wire:click="$emit('guardarCita', '{{ $nombreSeleccion }}') " href="#"
+                            <a wire:click="$emit('guardarCita', '{{ $nombreSeleccion }}','{{$idTratamiento}}') " href="#"
                                 class="btn btn-primary">Confirmar</a>
                         </div>
                     </div>

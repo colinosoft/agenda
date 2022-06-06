@@ -9,7 +9,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Role;
 use App\Models\Cita;
-use Illuminate\Support\Facades\Auth;
 
 
 class User extends Authenticatable
@@ -50,16 +49,20 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }
+    public function cita(){
+
+        return $this->belongsToMany(Cita::class)->withTimestamps();
+    }
 
     public function authorizeRoles($roles)
     {
         abort_unless($this->hasAnyRole($roles), 401);
         return true;
     }
-    public function cita()
-    {
-        return $this->hasMany(Cita::class);
-    }
+    // public function cita()
+    // {
+    //     return $this->hasMany(Cita::class);
+    // }
 
     public function hasAnyRole($roles)
     {
