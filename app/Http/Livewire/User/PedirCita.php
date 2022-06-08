@@ -163,43 +163,53 @@ class PedirCita extends Component
                     }
                 }
             }
+        //Sino existe ninguna cita
+        } else {
+            //Asigno una que sera la primera siempre
+            $listaEspacioLibres[] =  $horaIncio->format('d-m-Y H:i:s');
+
+            //Recorro hasta el hueco lo maximo que entre
+            for ($e = 1; $e < 10; $e++) {
+
+                //Le añado a la lista con el espacio de tiempo correspondiente de cada tratamiento
+                $listaEspacioLibres[] =  $horaIncio->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+            }
         }
-               if (count($listaEspacioLibres) < 10) {
+        if (count($listaEspacioLibres) < 10 && count($citaConsulta) > 0) {
 
 
-                    $huecoMinHastaPrimeraCita = abs(($horaIncio->getTimestamp()) - (strtotime($horaFechaIncio))) / 60;
+            $huecoMinHastaPrimeraCita = abs(($horaIncio->getTimestamp()) - (strtotime($horaFechaIncio))) / 60;
 
-                    if ($huecoMinHastaPrimeraCita >= $this->duracion) {
+            if ($huecoMinHastaPrimeraCita >= $this->duracion) {
 
-                        $horasPosibles = round($huecoMinHastaPrimeraCita / $this->duracion);
-                        $horas = 10 - count($listaEspacioLibres);
-                        $horafin = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[count($citaConsulta)-1]->end);
-                        $listaEspacioLibres[] =  $horafin->format('d-m-Y H:i:s');
-                        for ($e = 1; $e < $horas; $e++) {
+                $horasPosibles = round($huecoMinHastaPrimeraCita / $this->duracion);
+                $horas = 10 - count($listaEspacioLibres);
+                $horafin = DateTime::createFromFormat('Y-m-d H:i:s', $citaConsulta[count($citaConsulta) - 1]->end);
+                $listaEspacioLibres[] =  $horafin->format('d-m-Y H:i:s');
+                for ($e = 1; $e < $horas; $e++) {
 
-                             $listaEspacioLibres[] =  $horafin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
-
-                        }
-                    }
+                    $listaEspacioLibres[] =  $horafin->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
                 }
+            }
+        }
 
 
-            PedirCita::nombre($nombreTratamieto, $idTratamiento);
-            for ($i =0 ; $i < count($listaEspacioLibres); $i++){
-                // dd(strtotime($listaEspacioLibres[$i]));
+        PedirCita::nombre($nombreTratamieto, $idTratamiento);
 
-                $fecha = DateTime::createFromFormat('d-m-Y H:i:s', $listaEspacioLibres[$i]);
+        //Para no pasarse de la hora
+        for ($i = 0; $i < count($listaEspacioLibres); $i++) {
+            // dd(strtotime($listaEspacioLibres[$i]));
 
-                if ( $fecha->format('Y-m-d H:i:s') > $horaFinDia->format('Y-m-d H:i:s')){
-                    array_splice($listaEspacioLibres, $i);
-                    $horaIncioDiaSiguiente =   date_add(new DateTime('10:00:00'), date_interval_create_from_date_string('2 days '));
-                    $listaEspacioLibres[] =  $horaIncioDiaSiguiente->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+            $fecha = DateTime::createFromFormat('d-m-Y H:i:s', $listaEspacioLibres[$i]);
 
-                }
+            if ($fecha->format('Y-m-d H:i:s') > $horaFinDia->format('Y-m-d H:i:s')) {
+                array_splice($listaEspacioLibres, $i);
+                // $horaIncioDiaSiguiente =   date_add(new DateTime('10:00:00'), date_interval_create_from_date_string('2 days '));
+                // $listaEspacioLibres[] =  $horaIncioDiaSiguiente->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
 
             }
-
-            $this->section = $listaEspacioLibres;
         }
-    }
 
+        $this->section = $listaEspacioLibres;
+    }
+}

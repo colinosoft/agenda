@@ -24,22 +24,7 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td class="grid grid-cols-2">
-                                    {{-- <button  wire:click="$emit('admin.edit-user')">Hola</button>--}}
-
-                                     {{-- , ['user' => $user], key($user->id) --}}
-                                     {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"  wire:click="$emit('postAdded',{{$user->id}})" data-bs-target="#exampleModal">
-                                        Editar fuera
-                                      </button> --}}
-
-
-                                      {{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"  wire:click="usuario({{$user->id}})" data-bs-target="#exampleModal">
-                                        Editar
-                                      </button> --}}
-                                      {{-- @livewire('admin.edit-user' ,['user' => $user,'title' => 'Editar usuario'], key($user->id)) --}}
-
                                     <button class="mx-1 btn btn-primary fa-solid fa-pen-to-square" onclick='Livewire.emit("openModal", "admin.edit-user", @json([$user]))'></button>
-                                    {{-- Boton borrar normal
-                                    <button class="mx-1 btn btn-danger fas fa-trash" wire:click="delete({{$user->id}})"></button> --}}
                                     <button class="mx-1 btn btn-danger fas fa-trash" wire:click="$emit('deleteUser',{{$user->id}})"></button>
 
                                 </td>

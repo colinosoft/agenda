@@ -20,6 +20,9 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('cita') }}">Pedir cita</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('verCita') }}">Ver mis citas</a>
+        </li>
     @else
 
         <li class="nav-item">

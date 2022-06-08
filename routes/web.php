@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AgendaController;
 use App\Http\Controllers\Admin\TratamientosController;
 use App\Http\Controllers\User\PedirCita;
+use App\Http\Controllers\User\VerCita;
 use Illuminate\Support\Facades\Auth;
 
 // use App\Http\Controllers\Auth;
@@ -24,6 +25,8 @@ Route::get('/agenda', [App\Http\Controllers\CitaController::class, 'index'])->na
 Route::get('/administrar', [App\Http\Controllers\AdministrarController::class, 'index'])->name('administrar');
 //Pedir cita
 Route::get('/Cita', [PedirCita::class, 'index'])->name('cita');
+//Ver citass
+Route::get('/Ver-Citas', [VerCita::class, 'index'])->name('verCita');
 
 //-------------- Recursos ---------------//
 //-- Agenda --//
