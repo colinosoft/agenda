@@ -11,6 +11,8 @@ use DateTime;
 use DateInterval;
 use DB;
 
+use function PHPSTORM_META\type;
+
 class PedirCita extends Component
 {
 
@@ -95,7 +97,7 @@ class PedirCita extends Component
         $horaFechaIncio = date('Y-m-d 08:00:00', strtotime(date('Y-m-d 10:00:00') . "+1 days"));
 
         $horaIncio =   date_add(new DateTime('10:00:00'), date_interval_create_from_date_string('1 days '));
-        $horaPrueba =   date_add(new DateTime('20:00:00'), date_interval_create_from_date_string('1 days '));
+        $horaFinDia =   date_add(new DateTime('20:00:00'), date_interval_create_from_date_string('1 days '));
 
 
         //Si hay alguna cita calculo los huecos por delante con un maximo de 10
@@ -183,12 +185,20 @@ class PedirCita extends Component
 
 
             PedirCita::nombre($nombreTratamieto, $idTratamiento);
+            for ($i =0 ; $i < count($listaEspacioLibres); $i++){
+                // dd(strtotime($listaEspacioLibres[$i]));
 
-            // if(!empty($listaEspacioLibres)){
-            //     for($i = 0; $i < 10; $i++){
-            //         $listaFinal[] =  $listaEspacioLibres[$i];
-            //     }
-            // }
+                $fecha = DateTime::createFromFormat('d-m-Y H:i:s', $listaEspacioLibres[$i]);
+
+                if ( $fecha->format('Y-m-d H:i:s') > $horaFinDia->format('Y-m-d H:i:s')){
+                    array_splice($listaEspacioLibres, $i);
+                    $horaIncioDiaSiguiente =   date_add(new DateTime('10:00:00'), date_interval_create_from_date_string('2 days '));
+                    $listaEspacioLibres[] =  $horaIncioDiaSiguiente->add(new DateInterval(('PT' . $this->duracion . 'M')))->format('d-m-Y H:i:s');
+
+                }
+
+            }
+
             $this->section = $listaEspacioLibres;
         }
     }
