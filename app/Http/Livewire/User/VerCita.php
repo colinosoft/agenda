@@ -15,7 +15,9 @@ class VerCita extends Component
         $citas = DB::table('citas')
             ->join('tratamientos', 'citas.id_tratamiento', '=', 'tratamientos.id')
             ->where('citas.id_user', '=', Auth::user()->id)
+            ->whereRaw('citas.start > now()')
             ->select('citas.title', 'citas.start', 'tratamientos.duracion')
+            ->orderBy('citas.start', 'asc')
             ->get();
 
         return view('livewire.user.ver-cita', compact('citas'));
