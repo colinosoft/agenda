@@ -25,9 +25,9 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('inicio') }}">Inicio</a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link" href="{{ route('agenda') }}">Agenda</a>
-        </li>
+        </li> --}}
         <li class="nav-item">
             <a class="nav-link" href="{{ route('administrar') }}">Administrar</a>
         </li>

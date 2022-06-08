@@ -36,9 +36,16 @@
                         <h2 class="">BIENVENIDO AL SALON DE BELLEZA</h2>
                         <h2 class="mt-3">PIDE TU CITA, RAPIDO Y SENCILLO</h2>
 
+
+                        @if(Auth::check())
                         <a class="btn btn-primary btn-lg mt-5" href="{{ route('cita') }}">
                             {{ __('Pedir cita') }}
                         </a>
+                        @else
+                        <a class="btn btn-primary btn-lg mt-5" href="{{ route('login') }}">
+                            {{ __('Loguin para pedir tu cita') }}
+                        </a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -79,30 +86,24 @@
                 <div class="col-lg-6 order-lg-2 text-white showcase-img"
                     style="background-image: url('assets/img/bg-showcase-1.jpg')"></div>
                 <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                    <h2>Fully Responsive Design</h2>
-                    <p class="lead mb-0">When you use a theme created by Start Bootstrap, you know that the theme will
-                        look great on any device, whether it's a phone, tablet, or desktop the page will behave
-                        responsively!</p>
+                    <h2>Tratamientos personalizados</h2>
+                    <p class="lead mb-0">Disponemos de los mejores tratamientos personalizados para usted, consultenos sin ningún tipo de compromiso</p>
                 </div>
             </div>
             <div class="row g-0">
                 <div class="col-lg-6 text-white showcase-img" style="background-image: url('assets/img/bg-showcase-2.jpg')">
                 </div>
                 <div class="col-lg-6 my-auto showcase-text">
-                    <h2>Updated For Bootstrap 5</h2>
-                    <p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 5 is leading the
-                        way in mobile responsive web development! All of the themes on Start Bootstrap are now using
-                        Bootstrap 5!</p>
+                    <h2>Tenemos el mejor equipamientos</h2>
+                    <p class="lead mb-0">Usamos las últimas tecnologías y las ultimas maquinas para ponerlas a tu entera disposición</p>
                 </div>
             </div>
             <div class="row g-0">
                 <div class="col-lg-6 order-lg-2 text-white showcase-img"
                     style="background-image: url('assets/img/bg-showcase-3.jpg')"></div>
                 <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                    <h2>Easy to Use & Customize</h2>
-                    <p class="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand
-                        some deeper customization options. Out of the box, just add your content and images, and your new
-                        landing page will be ready to go!</p>
+                    <h2>Pide cita cuando y donde quieras</h2>
+                    <p class="lead mb-0">A traves de nuestra plataforma podras reserva tu cita en cualquier momento no te lo pienses</p>
                 </div>
             </div>
         </div>
@@ -110,28 +111,27 @@
     <!-- Testimonials-->
     <section class="testimonials text-center bg-light">
         <div class="container">
-            <h2 class="mb-5">What people are saying...</h2>
+            <h2 class="mb-5">Nuestros clientes...</h2>
             <div class="row">
                 <div class="col-lg-4">
                     <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                         <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-1.jpg" alt="..." />
-                        <h5>Margaret E.</h5>
-                        <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
+                        <h5>Elisa S.</h5>
+                        <p class="font-weight-light mb-0">"Increible la experiencia, muy aconsejable"</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                         <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-2.jpg" alt="..." />
-                        <h5>Fred S.</h5>
-                        <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of super
-                            nice landing pages."</p>
+                        <h5>Manuel G.</h5>
+                        <p class="font-weight-light mb-0">"El trato ha sido maravilloso, repetiré siempre que pueda"</p>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="testimonial-item mx-auto mb-5 mb-lg-0">
                         <img class="img-fluid rounded-circle mb-3" src="assets/img/testimonials-3.jpg" alt="..." />
-                        <h5>Sarah W.</h5>
-                        <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to us!"
+                        <h5>Ana B.</h5>
+                        <p class="font-weight-light mb-0">"Me encato poder reservar a traves de la web, super sencillo!"
                         </p>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
         <div class="container position-relative">
             <div class="row justify-content-center">
                 <div class="col-xl-6">
-                    <h2 class="mb-4">Ready to get started? Sign up now!</h2>
+                    <h2 class="mb-4">Tienes dudas, contacta!</h2>
                     <!-- Signup form-->
                     <!-- * * * * * * * * * * * * * * *-->
                     <!-- * * SB Forms Contact Form * *-->
@@ -157,7 +157,7 @@
                         <div class="row">
                             <div class="col">
                                 <input class="form-control form-control-lg" id="emailAddressBelow" type="email"
-                                    placeholder="Email Address" data-sb-validations="required,email" />
+                                    placeholder="Email" data-sb-validations="required,email" />
                                 <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:required">Email
                                     Address is required.</div>
                                 <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:email">Email
@@ -196,15 +196,15 @@
             <div class="row">
                 <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                     <ul class="list-inline mb-2">
-                        <li class="list-inline-item"><a href="#!">About</a></li>
+                        <li class="list-inline-item"><a href="#!">Sobre nosotros</a></li>
                         <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Contact</a></li>
+                        <li class="list-inline-item"><a href="#!">Contacto</a></li>
                         <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+                        <li class="list-inline-item"><a href="#!">Terminos de uso</a></li>
                         <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                        <li class="list-inline-item"><a href="#!">Privacidad</a></li>
                     </ul>
-                    <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2022. All Rights Reserved.</p>
+                    <p class="text-muted small mb-4 mb-lg-0">&copy; WEB CITAS 2022</p>
                 </div>
                 <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
                     <ul class="list-inline mb-0">
